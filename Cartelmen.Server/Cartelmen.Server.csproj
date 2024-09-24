@@ -17,9 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\cartelmenapp.client\Cartelmen.Client.Presentation.esproj">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
+    <ProjectReference Include="..\Cartelmen.Application\Cartelmen.Application.csproj" />
   </ItemGroup>
 
 </Project>
