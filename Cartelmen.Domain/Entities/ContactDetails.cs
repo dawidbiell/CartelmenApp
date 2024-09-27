@@ -14,7 +14,7 @@ public class ContactDetails
     [Column(TypeName = "varchar(64)")]
     public string? Email { get; set; }
 
-    //public Employee Employee { get; set; }
+    public Employee Employee { get; set; }
     //public Employee EmployeeId { get; set; }
 
 }

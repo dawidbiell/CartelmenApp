@@ -2,7 +2,7 @@
 
 namespace Cartelmen.Domain.Entities
 {
-    public class AddressDetails
+    public class Address
     {
         [Key]
         public required int Id { get; set; }
@@ -11,7 +11,7 @@ namespace Cartelmen.Domain.Entities
         public string PostalCode  { get; set; }
         public string Street  { get; set; }
 
-        public Workplace Workplace { get; set; }
-        public Workplace WorkplaceId { get; set; }
+        //public Workplace Workplace { get; set; }
+        //public Workplace WorkplaceId { get; set; }
     }
 }

@@ -20,8 +20,8 @@ namespace Cartelmen.Domain.Entities
 
         public decimal PayRate { get; set; }
 
-        //public ContactDetails Contact { get; set; }
-        //public int ContactId { get; set; }
+        public ContactDetails Contact { get; set; }
+        public int ContactId { get; set; }
 
 
 

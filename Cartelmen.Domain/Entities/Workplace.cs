@@ -14,9 +14,9 @@ namespace Cartelmen.Domain.Entities
         [Column(TypeName = "varchar(64)")]
         public string Description { get; set; }
 
-        public AddressDetails Address { get; set; }
-        public int AddressId { get; set; }
+        public Address Address { get; set; }
+        //public int AddressId { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
     }
 }
