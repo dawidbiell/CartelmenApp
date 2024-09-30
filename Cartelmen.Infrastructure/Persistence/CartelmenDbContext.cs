@@ -17,13 +17,32 @@ namespace Cartelmen.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Worker>()
-                .HasOne<ContactDetails>(w =>w.Contact)
-                .WithOne(cd =>cd.Worker)
-                .HasForeignKey<ContactDetails>(cd =>cd.WorkerId);
+            modelBuilder.Entity<Worker>(entity =>
+            {
+                entity.HasMany(w => w.Buildings)
+                    .WithMany(b => b.Workers)
+                    .UsingEntity<BuildingWorker>(
+                        w => w.HasOne(bw =>bw.Building)
+                            .WithMany()
+                            .HasForeignKey(bw =>bw.BuildingId),
+                        w => w.HasOne(bw =>bw.Worker)
+                            .WithMany()
+                            .HasForeignKey(bw =>bw.WorkerId),
+                        bw =>
+                        {
+                            bw.Property(e => e.AssignmentDate).HasDefaultValueSql("getutcdate()");
+                        }
 
-            modelBuilder.Entity<Building>()
-                .OwnsOne(b => b.Address);
+                    );
+            });
+
+
+            modelBuilder.Entity<Building>().OwnsOne(x => x.Address);
+     
+
+
+
+
         }
     }
 }

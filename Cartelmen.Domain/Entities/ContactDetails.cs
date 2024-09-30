@@ -11,9 +11,8 @@ public class ContactDetails
     public string? Phone { get; set; }
     [MaxLength(64)]
     public string? Email { get; set; }
-    [ForeignKey("EmployeeId")]
-    public Worker Worker { get; set; }
 
-    public int WorkerId { get; set; }
+    public Worker Worker { get; set; }
+    public Guid WorkerId { get; set; }
 
 }
