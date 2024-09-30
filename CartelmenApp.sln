@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Cartelmen.Client.Presentation", "cartelmenapp.client\Cartelmen.Client.Presentation.esproj", "{0FF49CD6-9547-4134-A189-CE44A0558B09}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Cartelmen.Client", "cartelmenapp.client\Cartelmen.Client.esproj", "{0FF49CD6-9547-4134-A189-CE44A0558B09}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cartelmen.Infrastructure", "Cartelmen.Infrastructure\Cartelmen.Infrastructure.csproj", "{570B2B28-151C-4756-BAE2-EF0D58A33208}"
 EndProject
