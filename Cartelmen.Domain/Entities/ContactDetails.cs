@@ -6,15 +6,14 @@ namespace Cartelmen.Domain.Entities;
 public class ContactDetails
 {
     [Key]
-    public required int Id { get; set; }
-
-    [Column(TypeName = "varchar(16)")]
+    public Guid Id { get; set; }
+    [MaxLength(16)]
     public string? Phone { get; set; }
-
-    [Column(TypeName = "varchar(64)")]
+    [MaxLength(64)]
     public string? Email { get; set; }
+    [ForeignKey("EmployeeId")]
+    public Worker Worker { get; set; }
 
-    public Employee Employee { get; set; }
-    //public Employee EmployeeId { get; set; }
+    public int WorkerId { get; set; }
 
 }

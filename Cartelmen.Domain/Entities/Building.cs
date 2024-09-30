@@ -3,20 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cartelmen.Domain.Entities
 {
-    public class Workplace
+    public class Building
     {
         [Key]
-        public required int Id { get; set; }
-
+        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-
-        [Column(TypeName = "varchar(64)")]
+        [MaxLength(64)]
         public string Description { get; set; }
-
-        public Address Address { get; set; }
-        //public int AddressId { get; set; }
-
         public DateTime? StartDate { get; set; }
+
+        public Address Address { get; set; } = default!;
+
+
     }
 }
