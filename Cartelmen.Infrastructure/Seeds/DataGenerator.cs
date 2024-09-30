@@ -22,7 +22,7 @@ namespace Cartelmen.Infrastructure.Seeds
             var id = 1;
             var buildingGenerator = new Faker<Building>(locale)
                 .StrictMode(true)
-                .RuleFor(b=>b.Id, f => id++);
+                .RuleFor(b=>b.Id, f => id++)
 
 
         }
