@@ -1,4 +1,7 @@
 
+using Cartelmen.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 namespace CartelmenApp.Server
 {
     public class Program
@@ -13,6 +16,10 @@ namespace CartelmenApp.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<CartelmenDbContext>(
+                option => option.UseSqlServer(builder.Configuration.GetConnectionString("CartelmenDB"))
+                );
+
 
             var app = builder.Build();
 
