@@ -12,7 +12,7 @@ namespace Cartelmen.Domain.Entities
         [MaxLength(64)]
         public string? Description { get; set; }
         [Column(TypeName = "date")]
-        public DateTime? StartDate { get; set; }
+        public DateOnly? StartDate { get; set; }
 
         public Address Address { get; set; } = default!;
         public IList<Worker> Workers { get; set; } = new List<Worker>();
