@@ -11,6 +11,7 @@ namespace Cartelmen.Domain.Entities
         public string Name { get; set; }
         [MaxLength(64)]
         public string? Description { get; set; }
+        [Column(TypeName = "date")]
         public DateTime? StartDate { get; set; }
 
         public Address Address { get; set; } = default!;

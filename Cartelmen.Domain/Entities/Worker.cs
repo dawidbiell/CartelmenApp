@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cartelmen.Domain.Entities
 {
@@ -10,7 +11,8 @@ namespace Cartelmen.Domain.Entities
         public string FirstName { get; set; } = default!;
         [Required] [MaxLength(64)]
         public string LastName { get; set; } = default!;
-        public DateTime? HiringDate { get; set; }
+        [Column(TypeName = "date")]
+        public DateOnly? HiringDate { get; set; }
         public decimal PayRate { get; set; } =default!;
 
 

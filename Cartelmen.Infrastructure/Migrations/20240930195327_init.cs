@@ -19,7 +19,7 @@ namespace Cartelmen.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,7 +46,7 @@ namespace Cartelmen.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    HiringDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    HiringDate = table.Column<DateOnly>(type: "date", nullable: true),
                     PayRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
