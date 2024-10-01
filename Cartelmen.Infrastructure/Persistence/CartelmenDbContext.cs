@@ -9,10 +9,10 @@ namespace Cartelmen.Infrastructure.Persistence
         public DbSet<ContactDetails> ContactDetails { get; set; }
         public DbSet<Building> Buildings { get; set; }
 
-        //public CartelmenDbContext(DbContextOptions<CartelmenDbContext> options) : base(options)
-        //{
+        public CartelmenDbContext(DbContextOptions<CartelmenDbContext> options) : base(options)
+        {
 
-        //}
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
