@@ -1,5 +1,6 @@
 
 using Cartelmen.Infrastructure.Persistence;
+using Cartelmen.Infrastructure.Seeds;
 using Microsoft.EntityFrameworkCore;
 
 namespace CartelmenApp.Server
@@ -16,6 +17,7 @@ namespace CartelmenApp.Server
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
             builder.Services.AddDbContext<CartelmenDbContext>(
                 option => option.UseSqlServer(builder.Configuration.GetConnectionString("CartelmenDB"))
                 );
@@ -31,6 +33,21 @@ namespace CartelmenApp.Server
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+
+                using var scope = app.Services.CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<CartelmenDbContext>();
+
+                if (dbContext.Database.GetPendingMigrations().Any())
+                {
+                    dbContext.Database.Migrate();
+                }
+
+                if (dbContext.Workers.FirstOrDefault() is null)
+                {
+                    DataGenerator.Seed(dbContext);
+                }
+
             }
 
             app.UseHttpsRedirection();
