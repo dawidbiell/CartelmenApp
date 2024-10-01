@@ -1,33 +1,25 @@
 ﻿using Bogus;
+using Bogus.DataSets;
 using Cartelmen.Domain.Entities;
 using Cartelmen.Infrastructure.Persistence;
+using Address = Cartelmen.Domain.Entities.Address;
 
 namespace Cartelmen.Infrastructure.Seeds
 {
     public static class DataGenerator
     {
+        private const string  Locale = "pl";
+        
         public static void Seed(CartelmenDbContext context)
         {
-            var locale = "pl";
             Randomizer.Seed = new Random(777);
 
-            
-
-            var contactDetailsGenerator = new Faker<ContactDetails>(locale)
-                .Rules((f, w) =>
-                {
-                    w.Id = Guid.NewGuid();
-                    w.Phone = f.Phone.PhoneNumber();
-                    w.Email = f.Internet.Email();
-
-                });
-
-            var workerGenerator = new Faker<Worker>(locale)
+            var workerGenerator = new Faker<Worker>(Locale)
                     .Rules((f, w) =>
                     {
                         //w.Id = Guid.NewGuid();
-                        w.FirstName = f.Person.FirstName;
-                        w.LastName = f.Name.LastName();
+                        w.FirstName = f.Name.FirstName( Name.Gender.Male);
+                        w.LastName = f.Name.LastName(Name.Gender.Male);
                         w.HiringDate = f.Random.Number(1, 5) switch
                         {
                             1 => null,
@@ -35,20 +27,20 @@ namespace Cartelmen.Infrastructure.Seeds
                             _ => f.Date.RecentDateOnly(),
                         };
                         w.PayRate = f.Random.Number(15, 25);
-                        w.Contact = contactDetailsGenerator.Generate();
+                        w.Contact = w.GenerateContact();
 
                     });
             var workers = workerGenerator.Generate(35).ToList();
 
 
-            var addressGenerator = new Faker<Address>(locale)
+            var addressGenerator = new Faker<Address>(Locale)
                 .RuleFor(a => a.Country, f => f.Address.Country())
                 .RuleFor(a => a.City, f => f.Address.City())
                 .RuleFor(a => a.Street, f => f.Address.StreetName())
                 .RuleFor(a => a.PostalCode, f => f.Address.ZipCode());
 
             //var id = 1;
-            var buildingGenerator = new Faker<Building>(locale)
+            var buildingGenerator = new Faker<Building>(Locale)
                 //.StrictMode()
                 //.RuleFor(b => b.Id, f => id++)
                 .RuleFor(b => b.Name, f => f.Company.CompanyName())
@@ -61,6 +53,20 @@ namespace Cartelmen.Infrastructure.Seeds
 
              context.AddRange(dataSeed);
              context.SaveChanges();
+        }
+
+        private static ContactDetails GenerateContact(this Worker worker)
+        {
+            var contactDetail = new Faker<ContactDetails>(Locale)
+                .Rules((f, w) =>
+                {
+                    w.Id = Guid.NewGuid();
+                    w.Phone = f.Phone.PhoneNumber();
+                    w.Email = f.Internet.Email(worker.FirstName, worker.LastName);
+
+                })
+                .Generate();
+            return contactDetail;
         }
     }
 }
