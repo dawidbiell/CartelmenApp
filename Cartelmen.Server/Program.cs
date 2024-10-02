@@ -1,9 +1,9 @@
-
+using Cartelmen.Infrastructure.Extensions;
 using Cartelmen.Infrastructure.Persistence;
 using Cartelmen.Infrastructure.Seeds;
 using Microsoft.EntityFrameworkCore;
 
-namespace CartelmenApp.Server
+namespace Cartelmen.Server
 {
     public class Program
     {
@@ -18,9 +18,8 @@ namespace CartelmenApp.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<CartelmenDbContext>(
-                option => option.UseSqlServer(builder.Configuration.GetConnectionString("CartelmenDB"))
-                );
+            builder.Services.AddInfrastructure(builder.Configuration);
+
 
 
             var app = builder.Build();

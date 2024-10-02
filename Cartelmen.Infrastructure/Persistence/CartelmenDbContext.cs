@@ -13,13 +13,7 @@ namespace Cartelmen.Infrastructure.Persistence
         {
 
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\MSSQLLocalDB;Database=CartelmenDb;Trusted_connection=True");
-        }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Worker>(entity =>
