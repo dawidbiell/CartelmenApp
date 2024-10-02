@@ -34,7 +34,6 @@ namespace Cartelmen.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
@@ -42,8 +41,8 @@ namespace Cartelmen.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly?>("StartDate")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -80,8 +79,8 @@ namespace Cartelmen.Infrastructure.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<DateTime?>("HiringDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly?>("HiringDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("LastName")
                         .IsRequired()

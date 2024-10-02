@@ -13,6 +13,8 @@ namespace Cartelmen.Domain.Entities
         public string LastName { get; set; } = default!;
         [Column(TypeName = "date")]
         public DateOnly? HiringDate { get; set; }
+
+        [Column(TypeName = "money")]
         public decimal PayRate { get; set; } =default!;
 
 
