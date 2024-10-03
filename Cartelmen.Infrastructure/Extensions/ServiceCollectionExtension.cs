@@ -7,12 +7,15 @@ namespace Cartelmen.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddInfrastructure(this IServiceCollection services,
-            IConfiguration configuration)
+        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<CartelmenDbContext>(
                 option => option.UseSqlServer(configuration.GetConnectionString("CartelmenDB"))
             );
+
+            services.AddScoped<CartelmenDbContext>();
+
+            
         }
 
     }

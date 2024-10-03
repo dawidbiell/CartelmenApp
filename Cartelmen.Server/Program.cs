@@ -7,7 +7,7 @@ namespace Cartelmen.Server
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -19,8 +19,6 @@ namespace Cartelmen.Server
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddInfrastructure(builder.Configuration);
-
-
 
             var app = builder.Build();
 
@@ -35,18 +33,15 @@ namespace Cartelmen.Server
 
 
                 using var scope = app.Services.CreateScope();
+
                 var dbContext = scope.ServiceProvider.GetRequiredService<CartelmenDbContext>();
-
-                if (dbContext.Database.GetPendingMigrations().Any())
+                if ((await dbContext.Database.GetPendingMigrationsAsync()).Any())
                 {
-                    dbContext.Database.Migrate();
+                    await dbContext.Database.MigrateAsync();
                 }
 
-                if (dbContext.Workers.FirstOrDefault() is null)
-                {
-                    DataGenerator.Seed(dbContext);
-                }
-
+                var dataGenerator = scope.ServiceProvider.GetRequiredService<DataGenerator>();
+                await dataGenerator.Seed();
             }
 
             app.UseHttpsRedirection();
