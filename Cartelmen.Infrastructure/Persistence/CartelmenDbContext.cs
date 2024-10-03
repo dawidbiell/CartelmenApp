@@ -1,4 +1,5 @@
 ﻿using Cartelmen.Domain.Entities;
+using Cartelmen.Infrastructure.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Infrastructure.Persistence
@@ -13,35 +14,11 @@ namespace Cartelmen.Infrastructure.Persistence
         {
 
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Worker>(entity =>
-            {
-                entity.HasMany(w => w.Buildings)
-                    .WithMany(b => b.Workers)
-                    .UsingEntity<BuildingWorker>(
-                        w => w.HasOne(bw =>bw.Building)
-                            .WithMany()
-                            .HasForeignKey(bw =>bw.BuildingId),
-                        w => w.HasOne(bw =>bw.Worker)
-                            .WithMany()
-                            .HasForeignKey(bw =>bw.WorkerId),
-                        bw =>
-                        {
-                            bw.Property(e => e.AssignmentDate).HasDefaultValueSql("getutcdate()");
-                        }
-
-                    );
-            });
-
-
-            modelBuilder.Entity<Building>().OwnsOne(x => x.Address);
-     
-
-
-
-
+            modelBuilder.ApplyConfiguration(new BuildingConfiguration());
+            modelBuilder.ApplyConfiguration(new WorkerConfiguration());
         }
     }
 }

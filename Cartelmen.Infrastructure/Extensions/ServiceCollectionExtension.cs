@@ -1,4 +1,5 @@
 ﻿using Cartelmen.Infrastructure.Persistence;
+using Cartelmen.Infrastructure.Seeds;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace Cartelmen.Infrastructure.Extensions
                 option => option.UseSqlServer(configuration.GetConnectionString("CartelmenDB"))
             );
 
-            services.AddScoped<CartelmenDbContext>();
+            services.AddScoped<DataGenerator>();
 
             
         }
