@@ -10,6 +10,8 @@ namespace Cartelmen.Infrastructure.Persistence
         public DbSet<ContactDetails> ContactDetails { get; set; }
         public DbSet<Building> Buildings { get; set; }
 
+        public DbSet<TimeTrack> TimeTracks { get; set; }
+
         public CartelmenDbContext(DbContextOptions<CartelmenDbContext> options) : base(options)
         {
 
@@ -19,6 +21,7 @@ namespace Cartelmen.Infrastructure.Persistence
         {
             modelBuilder.ApplyConfiguration(new BuildingConfiguration());
             modelBuilder.ApplyConfiguration(new WorkerConfiguration());
+            modelBuilder.ApplyConfiguration(new TimeTrackConfiguration());
         }
     }
 }
