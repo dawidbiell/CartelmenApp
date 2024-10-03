@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Cartelmen.Domain.Common;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cartelmen.Domain.Entities
 {
-    public class Building
+    public class Building :ISoftDeletable
     {
         [Key]
         public int Id { get; set; }
@@ -14,9 +15,12 @@ namespace Cartelmen.Domain.Entities
         [Column(TypeName = "date")]
         public DateOnly? StartDate { get; set; }
 
+
         public Address Address { get; set; } = default!;
         public IList<Worker> Workers { get; set; } = new List<Worker>();
 
 
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAtUtc { get; set; }
     }
 }
