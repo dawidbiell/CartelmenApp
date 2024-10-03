@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Cartelmen.Domain.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Domain.Entities
 {
-    public class Worker
+    public class Worker : ISoftDeletable
     {
         [Key]
         public required Guid Id { get; set; }
@@ -20,5 +22,8 @@ namespace Cartelmen.Domain.Entities
 
         public ContactDetails Contact { get; set; }
         public IList<Building> Buildings { get; set; } = new List<Building>();
+
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAtUtc { get; set; }
     }
 }

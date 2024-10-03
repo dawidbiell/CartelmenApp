@@ -29,5 +29,11 @@ public class WorkerConfiguration: IEntityTypeConfiguration<Worker>
 
             );
 
+        // Soft delete configuration
+        builder.HasQueryFilter(w => !w.IsDeleted);
+
+        builder.HasIndex( w => w.IsDeleted)
+            .HasFilter($"{nameof(Worker.IsDeleted)} = 0");
+
     }
 }
