@@ -2,17 +2,27 @@
 using Bogus.DataSets;
 using Cartelmen.Domain.Entities;
 using Cartelmen.Infrastructure.Persistence;
-using Address = Cartelmen.Domain.Entities.Address;
+using Entity = Cartelmen.Domain.Entities;
 
 namespace Cartelmen.Infrastructure.Seeds
 {
-    public static class DataGenerator
+    public class DataGenerator
     {
-        private const string  Locale = "pl";
-        
-        public static void Seed(CartelmenDbContext context)
+        private readonly CartelmenDbContext _dbContext;
+        private const string Locale = "pl";
+
+        public DataGenerator(CartelmenDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public async Task Seed()
         {
             Randomizer.Seed = new Random(777);
+
+            if (!await _dbContext.Database.CanConnectAsync()) return;
+            if (_dbContext.Buildings.Any()) return;
+
 
             var workerGenerator = new Faker<Worker>(Locale)
                     .Rules((f, w) =>
@@ -27,22 +37,19 @@ namespace Cartelmen.Infrastructure.Seeds
                             _ => f.Date.RecentDateOnly(),
                         };
                         w.PayRate = f.Random.Number(15, 25);
-                        w.Contact = w.GenerateContact();
+                        w.Contact = w.GenerateContact(Locale);
 
                     });
             var workers = workerGenerator.Generate(35).ToList();
 
 
-            var addressGenerator = new Faker<Address>(Locale)
+            var addressGenerator = new Faker<Entity.Address>(Locale)
                 .RuleFor(a => a.Country, f => f.Address.Country())
                 .RuleFor(a => a.City, f => f.Address.City())
                 .RuleFor(a => a.Street, f => f.Address.StreetName())
                 .RuleFor(a => a.PostalCode, f => f.Address.ZipCode());
 
-            //var id = 1;
             var buildingGenerator = new Faker<Building>(Locale)
-                //.StrictMode()
-                //.RuleFor(b => b.Id, f => id++)
                 .RuleFor(b => b.Name, f => f.Company.CompanyName())
                 .RuleFor(b => b.Description, f => f.Company.CatchPhrase())
                 .RuleFor(b => b.StartDate, f => f.Date.BetweenDateOnly(DateOnly.Parse("2024-01-01"),DateOnly.Parse("2024-12-31")).OrNull(f,.1f))
@@ -51,22 +58,10 @@ namespace Cartelmen.Infrastructure.Seeds
 
             var dataSeed = buildingGenerator.Generate(5);
 
-             context.AddRange(dataSeed);
-             context.SaveChanges();
+             await _dbContext.AddRangeAsync(dataSeed);
+             await _dbContext.SaveChangesAsync();
         }
 
-        private static ContactDetails GenerateContact(this Worker worker)
-        {
-            var contactDetail = new Faker<ContactDetails>(Locale)
-                .Rules((f, w) =>
-                {
-                    w.Id = Guid.NewGuid();
-                    w.Phone = f.Phone.PhoneNumber();
-                    w.Email = f.Internet.Email(worker.FirstName, worker.LastName);
-
-                })
-                .Generate();
-            return contactDetail;
-        }
+        
     }
 }

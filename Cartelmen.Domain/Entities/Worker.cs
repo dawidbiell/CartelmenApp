@@ -20,8 +20,5 @@ namespace Cartelmen.Domain.Entities
 
         public ContactDetails Contact { get; set; }
         public IList<Building> Buildings { get; set; } = new List<Building>();
-
-
-
     }
 }
