@@ -1,3 +1,4 @@
+using Cartelmen.Application.Extensions;
 using Cartelmen.Infrastructure.Extensions;
 using Cartelmen.Infrastructure.Persistence;
 using Cartelmen.Infrastructure.Seeds;
@@ -19,6 +20,7 @@ namespace Cartelmen.Server
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplication();
 
             var app = builder.Build();
 
