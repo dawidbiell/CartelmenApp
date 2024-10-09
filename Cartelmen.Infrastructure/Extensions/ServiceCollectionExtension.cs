@@ -1,4 +1,6 @@
-﻿using Cartelmen.Infrastructure.Persistence;
+﻿using Cartelmen.Domain.Interfaces;
+using Cartelmen.Infrastructure.Persistence;
+using Cartelmen.Infrastructure.Repositories;
 using Cartelmen.Infrastructure.Seeds;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,8 +17,11 @@ namespace Cartelmen.Infrastructure.Extensions
             );
 
             services.AddScoped<DataGenerator>();
+            services.AddScoped<IWorkerRepository, WorkerRepository>();
 
-            
+
+
+
         }
 
     }
