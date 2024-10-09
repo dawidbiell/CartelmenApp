@@ -20,26 +20,25 @@ namespace Cartelmen.Server.Controllers
         {
             var createdBuilding = await _buildingService.Create(building);
             return Ok(createdBuilding);
-            //return CreatedAtAction(nameof(GetById), new { id = createdBuilding.Id }, createdBuilding);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetById(int id)
-        //{
-        //    var building = await _buildingService.GetByIdAsync(id);
-        //    if (building == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(building);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var building = await _buildingService.GetById(id);
+            if (building == null)
+            {
+                return NotFound();
+            }
+            return Ok(building);
+        }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    var buildings = await _buildingService.GetAllAsync();
-        //    return Ok(buildings);
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var buildings = await _buildingService.GetAll();
+            return Ok(buildings);
+        }
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> Update(int id, Building building)
