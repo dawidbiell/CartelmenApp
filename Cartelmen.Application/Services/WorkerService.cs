@@ -1,4 +1,6 @@
-﻿using Cartelmen.Domain.Entities;
+﻿using AutoMapper;
+using Cartelmen.Application.DTOs;
+using Cartelmen.Domain.Entities;
 using Cartelmen.Domain.Interfaces;
 
 namespace Cartelmen.Application.Services
@@ -6,13 +8,16 @@ namespace Cartelmen.Application.Services
     public class WorkerService : IWorkerService
     {
         private readonly IWorkerRepository _workerRepository;
+        private readonly IMapper _mapper;
 
-        public WorkerService(IWorkerRepository workerRepository)
+        public WorkerService(IWorkerRepository workerRepository, IMapper mapper)
         {
             _workerRepository = workerRepository;
+            _mapper = mapper;
         }
-        public async Task<Worker> Create (Worker worker)
+        public async Task<Worker> Create (WorkerDto workerDto)
         {
+            var worker = _mapper.Map<Worker>(workerDto);
             return await _workerRepository.AddAsync(worker);
         }
 

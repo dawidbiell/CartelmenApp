@@ -1,5 +1,5 @@
-﻿using Cartelmen.Application.Services;
-using Cartelmen.Domain.Entities;
+﻿using Cartelmen.Application.DTOs;
+using Cartelmen.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
@@ -15,7 +15,7 @@ public class WorkerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(Worker worker)
+    public async Task<IActionResult> Create(WorkerDto worker)
     {
         return Ok(await _workerService.Create(worker));
     }

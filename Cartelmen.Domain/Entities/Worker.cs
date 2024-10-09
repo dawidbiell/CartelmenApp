@@ -19,8 +19,9 @@ namespace Cartelmen.Domain.Entities
         [Column(TypeName = "money")]
         public decimal PayRate { get; set; } =default!;
 
-
+        [ForeignKey("ContactId")]
         public ContactDetails Contact { get; set; }
+        //public Guid ContactId { get; set; }
         public IList<Building> Buildings { get; set; } = new List<Building>();
 
         public bool IsDeleted { get; set; }
