@@ -75,7 +75,7 @@ namespace Cartelmen.Infrastructure.Seeds
 
 
             //timetracks
-            if (!_dbContext.TimeTracks.Any()) return;
+            if (_dbContext.TimeTracks.Any()) return;
 
             var timeTrackGenerator = new Faker<TimeTrack>(Locale)
                 .Rules((f, tt) =>
