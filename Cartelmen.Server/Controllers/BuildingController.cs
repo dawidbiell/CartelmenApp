@@ -1,4 +1,5 @@
-﻿using Cartelmen.Application.Services;
+﻿using Cartelmen.Application.DTOs;
+using Cartelmen.Application.Services;
 using Cartelmen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,7 @@ namespace Cartelmen.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Building building)
+        public async Task<IActionResult> Create(BuildingDto building)
         {
             var createdBuilding = await _buildingService.Create(building);
             return Ok(createdBuilding);

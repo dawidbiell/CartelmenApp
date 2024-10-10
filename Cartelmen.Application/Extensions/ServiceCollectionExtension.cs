@@ -8,6 +8,7 @@ public static class ServiceCollectionExtension
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(WorkerProfile));
+        services.AddAutoMapper(typeof(BuildingProfile));
 
         services.AddScoped<IWorkerService, WorkerService>();
         services.AddScoped<IBuildingService, BuildingService>();
