@@ -15,6 +15,6 @@ public class WorkerProfile : Profile
                     Phone = src.Phone,
                 }))
             .ForMember(e => e.PayRate, src => src.MapFrom(src => src.PayRate));
-        // rest of members are automapped
+        // rest of members are automapped by Type+name
     }
 }

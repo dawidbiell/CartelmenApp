@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cartelmen.Domain.Entities;
+﻿using Cartelmen.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,6 +8,10 @@ public class WorkerConfiguration: IEntityTypeConfiguration<Worker>
 {
     public void Configure(EntityTypeBuilder<Worker> builder)
     {
+        builder.HasOne(cd => cd.Contact)
+            .WithOne(w => w.Worker)
+            .HasForeignKey<ContactDetails>(cd => cd.WorkerId);
+
         builder.HasMany(w => w.Buildings)
             .WithMany(b => b.Workers)
             .UsingEntity<BuildingWorker>(
