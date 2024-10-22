@@ -12,3 +12,25 @@ th, td {
 table {
     margin: 0 auto;
 }
+
+.building-list {
+    list-style: none;         /* Brak znaczników listy */
+    padding: 0;               /* Brak dodatkowego odstępu */
+    margin: 0;
+}
+.building-item {
+    border: 1px solid #ccc;  /* Ramka wokół każdego elementu */
+    padding: 15px;           /* Odstęp wewnętrzny */
+    margin-bottom: 10px;      /* Odstęp między elementami */
+    border-radius: 5px;       /* Zaokrąglenie krawędzi */
+    text-align: left;         /* Wyrównanie tekstu do lewej */
+    background-color: #f9f9f9; /* Kolor tła dla odróżnienia */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Cień dla efektu głębi */
+    transition: transform 0.3s ease;           /* Płynna animacja */
+}
+
+.building-item:hover {
+  transform: translateY(-5px);               /* Efekt podniesienia po najechaniu myszką */
+}
+
+  

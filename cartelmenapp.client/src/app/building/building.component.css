@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px; /* Odstęp między polami */
-  width: 250px; /* Szerokość 1/5 widoku */
 }
 
 .form-group {

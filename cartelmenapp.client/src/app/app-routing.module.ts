@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/building', pathMatch: 'full' },
-  // { path: '', component: AppComponent },
+  // { path: '', redirectTo: '/building', pathMatch: 'full' },
+  { path: '', component: AppComponent },
   { path: 'building', loadChildren: () => import('./building/building.module').then(m => m.BuildingModule) },
   // Dodaj inne ścieżki tutaj
 ];
