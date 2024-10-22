@@ -15,6 +15,7 @@ export class BuildingService {
   // Metoda do zapisywania BuildingDto
   createBuilding(building: BuildingDto): Observable<BuildingDto> {
     return this.http.post<BuildingDto>(this.apiUrl +'/building', building);
+    console.log("onSubmit clicked")
   }
 
   getBuldings(): Observable<BuildingDto[]> {

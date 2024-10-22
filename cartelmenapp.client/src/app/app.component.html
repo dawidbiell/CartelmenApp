@@ -1,17 +1,5 @@
 ﻿
 <h1> to jest app component. Tytuł: {{title}}</h1>
 
-<!-- <router-outlet></router-outlet> -->
+<router-outlet></router-outlet>
 
-<ul class="building-list">
-  
-  <li class="building-item" *ngFor="let building of buildings">
-    <h3>{{ building.name }}</h3>
-    <p *ngIf="building.description">Description: {{ building.description }}</p>
-    <p>Start Date: {{ building.startDate | date: 'yyyy-MM-dd' }}</p>
-    <p *ngIf="building.country">Country: {{ building.country }}</p>
-    <p *ngIf="building.city">City: {{ building.city }}</p>
-    <p *ngIf="building.street">Street: {{ building.street }}</p>
-    <p *ngIf="building.postalCode">Postal Code: {{ building.postalCode }}</p>
-  </li>
-</ul>

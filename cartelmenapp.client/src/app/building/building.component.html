@@ -1,38 +1,15 @@
-<form (ngSubmit)="onSubmit()" #buildingForm="ngForm" class="building-form">
-  <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" id="name" required [(ngModel)]="building.name" name="name">
-  </div>
 
-  <div class="form-group">
-    <label for="description">Description:</label>
-    <input type="text" id="description" [(ngModel)]="building.description" name="description">
-  </div>
+<ul class="building-list">
+  
+  <li class="building-item" *ngFor="let building of buildings">
+    <h3>{{ building.name }}</h3>
+    <p *ngIf="building.description">Description: {{ building.description }}</p>
+    <p>Start Date: {{ building.startDate | date: 'yyyy-MM-dd' }}</p>
+    <p *ngIf="building.country">Country: {{ building.country }}</p>
+    <p *ngIf="building.city">City: {{ building.city }}</p>
+    <p *ngIf="building.street">Street: {{ building.street }}</p>
+    <p *ngIf="building.postalCode">Postal Code: {{ building.postalCode }}</p>
+  </li>
+</ul>
 
-  <div class="form-group">
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" [(ngModel)]="building.startDate" name="startDate">
-  </div>
 
-  <div class="form-group">
-    <label for="country">Country:</label>
-    <input type="text" id="country" [(ngModel)]="building.country" name="country">
-  </div>
-
-  <div class="form-group">
-    <label for="city">City:</label>
-    <input type="text" id="city" [(ngModel)]="building.city" name="city">
-  </div>
-
-  <div class="form-group">
-    <label for="street">Street:</label>
-    <input type="text" id="street" [(ngModel)]="building.street" name="street">
-  </div>
-
-  <div class="form-group">
-    <label for="postalCode">Postal Code:</label>
-    <input type="text" id="postalCode" [(ngModel)]="building.postalCode" name="postalCode">
-  </div>
-
-  <button type="submit">Save</button>
-</form>

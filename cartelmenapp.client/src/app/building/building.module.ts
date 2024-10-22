@@ -5,16 +5,17 @@ import { BuildingRoutingModule } from './building-routing.module';
 import { BuildingComponent } from './building.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { BuildingCreateComponent } from './building-create/building-create.component';
 
 
 @NgModule({
   declarations: [
-    BuildingComponent
+    BuildingComponent,
+    BuildingCreateComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    // FormsModule,
     BuildingRoutingModule
   ]
 })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BuildingDto } from './model/building.model';
 import { BuildingService } from './services/building.service';
 
@@ -7,21 +7,18 @@ import { BuildingService } from './services/building.service';
   templateUrl: './building.component.html',
   styleUrls: ['./building.component.css']
 })
-export class BuildingComponent {
-  constructor(private buildingService: BuildingService) {}
+export class BuildingComponent implements OnInit{
   
-  building: BuildingDto = {
-    name: '',
-    description: '',
-    startDate: new Date(),
-    country: '',
-    city: '',
-    street: '',
-    postalCode: ''
-  };
+  buildings: BuildingDto[] = [];
 
+  buildingService = inject(BuildingService)
 
-  onSubmit() {
-    this.buildingService.createBuilding(this.building);
+  ngOnInit() {
+    this.buildingService.getBuldings().subscribe({
+      next: response => this.buildings = response,
+      error: error => console.error(error),
+      complete: () => console.log("getBuldings() request compleated")
+    })
   }
+
 }
