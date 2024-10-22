@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BuildingDto } from './model/building.model';
-import { HttpClientService } from './services/http-client.service';
+import { BuildingService } from './services/building.service';
 
 @Component({
   selector: 'app-building',
@@ -8,6 +8,8 @@ import { HttpClientService } from './services/http-client.service';
   styleUrls: ['./building.component.css']
 })
 export class BuildingComponent {
+  constructor(private buildingService: BuildingService) {}
+  
   building: BuildingDto = {
     name: '',
     description: '',
@@ -18,9 +20,8 @@ export class BuildingComponent {
     postalCode: ''
   };
 
-  constructor(private httpClientService: HttpClientService) {}
 
   onSubmit() {
-    this.httpClientService.createBuilding(this.building);
+    this.buildingService.createBuilding(this.building);
   }
 }

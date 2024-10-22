@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { HttpClientService } from './building/services/http-client.service';
+import { BuildingService } from './building/services/building.service';
 import { BuildingDto } from './building/model/building.model';
 
 @Component({
@@ -9,9 +8,11 @@ import { BuildingDto } from './building/model/building.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  buildings: BuildingDto[] =[];
+  title = 'cartelmenapp.client';
+  buildings: BuildingDto[] = [];
 
-  buildingService = inject(HttpClientService)
+  buildingService = inject(BuildingService)
+
   ngOnInit() {
     this.buildingService.getBuldings().subscribe({
       next: response => this.buildings = response,
@@ -20,5 +21,4 @@ export class AppComponent implements OnInit {
     })
   }
 
-  title = 'cartelmenapp.client';
 }

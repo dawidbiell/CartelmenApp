@@ -1,9 +1,10 @@
 ﻿
-<div> to jest app component. Tytuł: {{title}}</div>
+<h1> to jest app component. Tytuł: {{title}}</h1>
 
 <!-- <router-outlet></router-outlet> -->
 
 <ul class="building-list">
+  
   <li class="building-item" *ngFor="let building of buildings">
     <h3>{{ building.name }}</h3>
     <p *ngIf="building.description">Description: {{ building.description }}</p>
