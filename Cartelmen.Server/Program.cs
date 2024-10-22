@@ -31,8 +31,6 @@ namespace Cartelmen.Server
                         .AllowAnyHeader());
             });
 
-
-
             var app = builder.Build();
 
             app.UseDefaultFiles();
@@ -58,7 +56,7 @@ namespace Cartelmen.Server
             }
 
             app.UseCors("MyPolicy");
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
