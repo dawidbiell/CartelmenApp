@@ -22,6 +22,17 @@ namespace Cartelmen.Server
             builder.Services.AddInfrastructure(builder.Configuration);
             builder.Services.AddApplication();
 
+            builder.Services.AddCors( options =>
+            {
+                options.AddPolicy("MyPolicy",
+                    corsPolicyBuilder => corsPolicyBuilder
+                        .WithOrigins("https://localhost:4200;http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
+
+
+
             var app = builder.Build();
 
             app.UseDefaultFiles();
@@ -46,6 +57,7 @@ namespace Cartelmen.Server
                 await dataGenerator.Seed();
             }
 
+            app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
