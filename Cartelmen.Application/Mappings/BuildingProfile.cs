@@ -7,8 +7,8 @@ public class BuildingProfile:Profile
 {
     public BuildingProfile()
     {
-        CreateMap<BuildingDto, Building>()
-            .ForMember(dto => dto.Address, opt => opt
+        CreateMap<BuildingDto, Building>(  )
+            .ForMember(e => e.Address, a => a
                 .MapFrom(dto => new Address()
                 {
                     Country = dto.Country,

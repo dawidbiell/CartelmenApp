@@ -8,13 +8,13 @@ public class WorkerProfile : Profile
     public WorkerProfile()
     {
         CreateMap<WorkerDto, Worker>()
-            .ForMember(w => w.Contact, 
-                cd => cd.MapFrom(src => new ContactDetails()
+            .ForMember(e => e.Contact, 
+                cd => cd.MapFrom(dto => new ContactDetails()
                 {
-                    Email = src.Email,
-                    Phone = src.Phone,
+                    Email = dto.Email,
+                    Phone = dto.Phone,
                 }))
-            .ForMember(e => e.PayRate, src => src.MapFrom(src => src.PayRate));
+            .ForMember(e => e.PayRate, pr => pr.MapFrom(dto => dto.PayRate));
         // rest of members are automapped by Type+name
     }
 }
