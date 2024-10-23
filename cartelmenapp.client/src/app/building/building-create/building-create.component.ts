@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BuildingDto } from '../model/building.model';
+import { Building } from '../model/building.model';
 import { BuildingService } from '../services/building.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { BuildingService } from '../services/building.service';
 })
 export class BuildingCreateComponent {
   constructor(private buildingService: BuildingService ) {}
-  building: BuildingDto = {
+  building: Building = {
     name: '',
     description: '',
     startDate: undefined,
@@ -21,7 +21,7 @@ export class BuildingCreateComponent {
 
 
   onSubmit() {
-    this.buildingService.createBuilding(this.building).subscribe({
+    this.buildingService.create(this.building).subscribe({
       next: (response) => console.log('Building added', response),
       error: (error) => console.error('Error adding building:', error)
     });

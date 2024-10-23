@@ -1,6 +1,5 @@
 ﻿using Cartelmen.Application.DTOs;
 using Cartelmen.Application.Services;
-using Cartelmen.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers
@@ -12,7 +11,7 @@ namespace Cartelmen.Server.Controllers
         private readonly IBuildingService _buildingService;
 
         public BuildingController(IBuildingService buildingService)
-        {
+        {      
             _buildingService = buildingService;
         }
 

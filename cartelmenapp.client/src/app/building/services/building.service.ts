@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BuildingDto } from '../model/building.model';
+import { Building } from '../model/building.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,13 +12,11 @@ export class BuildingService {
 
   constructor(private http: HttpClient) { }
 
-  // Metoda do zapisywania BuildingDto
-  createBuilding(building: BuildingDto): Observable<BuildingDto> {
-    return this.http.post<BuildingDto>(this.apiUrl +'/building', building);
-    console.log("onSubmit clicked")
+  create(building: Building): Observable<Building> {
+    return this.http.post<Building>(this.apiUrl +'/building', building);
   }
 
-  getBuldings(): Observable<BuildingDto[]> {
-    return this.http.get<BuildingDto[]>(this.apiUrl + '/building');
+  getBuldings(): Observable<Building[]> {
+    return this.http.get<Building[]>(this.apiUrl + '/building');
   }
 }

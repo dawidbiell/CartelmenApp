@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { BuildingDto } from './model/building.model';
+import { Building } from './model/building.model';
 import { BuildingService } from './services/building.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { BuildingService } from './services/building.service';
 })
 export class BuildingComponent implements OnInit{
   
-  buildings: BuildingDto[] = [];
+  buildings: Building[] = [];
 
   buildingService = inject(BuildingService)
 
