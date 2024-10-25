@@ -1,0 +1,9 @@
+<ul class="worker-list">
+  <li class="worker-item" *ngFor="let worker of workers">
+    <h3>{{ worker.firstName }} {{ worker.lastName }}</h3>
+    <p *ngIf="worker.phone">Phone: {{ worker.phone }}</p>
+    <p *ngIf="worker.email">Email: {{ worker.email }}</p>
+    <p>Pay Rate: {{ worker.payRate | currency }}</p>
+    <p *ngIf="worker.hiringDate">Hiring Date: {{ worker.hiringDate | date: 'yyyy-MM-dd' }}</p>
+  </li>
+</ul>
