@@ -1,5 +1,9 @@
-﻿using Cartelmen.Application.Mappings;
+﻿using Cartelmen.Application.DTOs;
+using Cartelmen.Application.Mappings;
 using Cartelmen.Application.Services;
+using Cartelmen.Domain.Entities;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cartelmen.Application.Extensions;
@@ -12,7 +16,9 @@ public static class ServiceCollectionExtension
 
         services.AddScoped<IWorkerService, WorkerService>();
         services.AddScoped<IBuildingService, BuildingService>();
-            
+
+        services.AddValidatorsFromAssemblyContaining<WorkerDto>();
+
     }
 
 }

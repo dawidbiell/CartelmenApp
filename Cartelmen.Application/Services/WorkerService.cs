@@ -2,6 +2,7 @@
 using Cartelmen.Application.DTOs;
 using Cartelmen.Domain.Entities;
 using Cartelmen.Domain.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Application.Services
 {

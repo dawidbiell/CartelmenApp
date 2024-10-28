@@ -1,23 +1,38 @@
 ﻿using Cartelmen.Application.DTOs;
 using Cartelmen.Application.Services;
+using Cartelmen.Domain.Entities;
+using FluentValidation;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
 
+[ApiController]
 [Route("api/[controller]")]
 public class WorkerController : Controller
 {
     private readonly IWorkerService _workerService;
+    private readonly IValidator<WorkerDto> _validator;
 
-    public WorkerController(IWorkerService workerService)
+    public WorkerController(IWorkerService workerService, IValidator<WorkerDto> validator)
     {
         _workerService = workerService;
+        _validator = validator;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(WorkerDto worker)
+    public async Task<IResult> Create([FromBody] WorkerDto worker)
     {
-        return Ok(await _workerService.Create(worker));
+        var validationResult = await _validator.ValidateAsync(worker);
+
+        if (!validationResult.IsValid)
+        {
+            return Results.ValidationProblem(validationResult.ToDictionary());
+        }
+
+        await _workerService.Create(worker);
+        return Results.Ok();
+
     }
 
     [HttpGet("{id}")]
