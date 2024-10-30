@@ -37,20 +37,19 @@ namespace Cartelmen.Server
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
+            using var scope = app.Services.CreateScope();
+
+            var dbContext = scope.ServiceProvider.GetRequiredService<CartelmenDbContext>();
+            if ((await dbContext.Database.GetPendingMigrationsAsync()).Any())
+            {
+                await dbContext.Database.MigrateAsync();
+            }
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-
-
-                using var scope = app.Services.CreateScope();
-
-                var dbContext = scope.ServiceProvider.GetRequiredService<CartelmenDbContext>();
-                if ((await dbContext.Database.GetPendingMigrationsAsync()).Any())
-                {
-                    await dbContext.Database.MigrateAsync();
-                }
 
                 var dataGenerator = scope.ServiceProvider.GetRequiredService<DataGenerator>();
                 await dataGenerator.Seed();
