@@ -62,15 +62,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cartelmenappClient:build:production"
+              "buildTarget": "cartelmenappClient:build:production"
             },
             "development": {
-              "browserTarget": "cartelmenappClient:build:development"
+              "buildTarget": "cartelmenappClient:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
