@@ -37,7 +37,7 @@ namespace Cartelmen.Infrastructure.Repositories
         {
             _dbContext.Buildings.Update(building);
             var result = await _dbContext.SaveChangesAsync();
-            return result > 0 ? building : default;
+            return result > 0 ? building : null;
         }
 
         public async Task<bool> DeleteByIdAsync(int id)
@@ -45,8 +45,8 @@ namespace Cartelmen.Infrastructure.Repositories
             var result = await _dbContext.Buildings
                 .Where(b => b.Id == id && !b.IsDeleted)
                 .ExecuteUpdateAsync(b => b
-                    .SetProperty(b => b.IsDeleted ,true)
-                    .SetProperty(b => b.DeletedAtUtc , DateTime.UtcNow)
+                    .SetProperty(building => building.IsDeleted ,true)
+                    .SetProperty(building => building.DeletedAtUtc , DateTime.UtcNow)
                 );
 
             return result > 0;
