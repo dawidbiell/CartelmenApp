@@ -6,11 +6,11 @@ namespace Cartelmen.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BuildingController : ControllerBase
+    public class BuildingsController : ControllerBase
     {
         private readonly IBuildingService _buildingService;
 
-        public BuildingController(IBuildingService buildingService)
+        public BuildingsController(IBuildingService buildingService)
         {      
             _buildingService = buildingService;
         }

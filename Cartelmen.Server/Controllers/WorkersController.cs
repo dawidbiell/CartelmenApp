@@ -9,12 +9,12 @@ namespace Cartelmen.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class WorkerController : Controller
+public class WorkersController : Controller
 {
     private readonly IWorkerService _workerService;
     private readonly IValidator<WorkerDto> _validator;
 
-    public WorkerController(IWorkerService workerService, IValidator<WorkerDto> validator)
+    public WorkersController(IWorkerService workerService, IValidator<WorkerDto> validator)
     {
         _workerService = workerService;
         _validator = validator;
