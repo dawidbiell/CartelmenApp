@@ -26,7 +26,7 @@ namespace Cartelmen.Server
             {
                 options.AddPolicy("MyPolicy",
                     corsPolicyBuilder => corsPolicyBuilder
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins("http://localhost:4200", "https://localhost:4200")
                         //.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
