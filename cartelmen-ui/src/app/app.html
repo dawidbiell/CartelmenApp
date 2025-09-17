@@ -1,1 +1,7 @@
-<b> {{title() }}</b>
+<h1>{{title()}}</h1>
+
+<ul>
+  @for (building of buildings(); track building.id) {
+    <li>{{building.name}}: {{building.description}}</li>
+  }
+</ul>
