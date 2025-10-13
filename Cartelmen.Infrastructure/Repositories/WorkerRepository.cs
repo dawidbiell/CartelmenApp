@@ -14,16 +14,12 @@ public class WorkerRepository: IWorkerRepository
     }
 
     public async Task<IEnumerable<Worker>> GetAllAsync()
-    {
-        return await _dbContext.Workers
+        =>  await _dbContext.Workers
             .IgnoreQueryFilters()
             .ToListAsync();
-    }
-
-    public async Task<Worker?> GetByIdAsync(Guid id)
-    {
-        return await _dbContext.Workers.FindAsync(id);
-    }
+    
+    public async Task<Worker?> GetByIdAsync(Guid id) 
+        => await _dbContext.Workers.FindAsync(id);
 
     public async Task<Worker> AddAsync(Worker worker)
     {

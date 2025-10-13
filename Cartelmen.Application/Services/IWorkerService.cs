@@ -5,7 +5,7 @@ namespace Cartelmen.Application.Services;
 public interface IWorkerService
 {
     Task<Worker> Create (WorkerDto worker);
-    Task<IEnumerable<Worker>> GetAll();
+    Task<IEnumerable<WorkerDto>> GetAll();
     Task<Worker?> GetById(Guid id);
     Task<Worker?> Update(Worker worker);
     Task<bool> DeleteById(Guid id);

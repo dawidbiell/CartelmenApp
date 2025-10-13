@@ -16,5 +16,10 @@ public class WorkerProfile : Profile
                 }))
             .ForMember(e => e.PayRate, pr => pr.MapFrom(dto => dto.PayRate));
         // rest of members are automapped by Type+name
+
+        CreateMap<Worker, WorkerDto>()
+            .ForMember(dto => dto.Email, opt => opt.MapFrom(src => src.Contact.Email))
+            .ForMember(dto => dto.Phone, opt => opt.MapFrom(src => src.Contact.Phone));
+
     }
 }
