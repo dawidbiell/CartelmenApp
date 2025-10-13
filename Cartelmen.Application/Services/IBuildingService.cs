@@ -9,7 +9,7 @@ namespace Cartelmen.Application.Services
     {
         Task<Building> Create(BuildingDto building);
         Task<Building?> GetById(int id);
-        Task<IEnumerable<Building>> GetAll();
+        Task<IEnumerable<BuildingDto>> GetAll();
         Task<Building?> Update(Building building);
         Task<bool> DeleteById(int id);
     }

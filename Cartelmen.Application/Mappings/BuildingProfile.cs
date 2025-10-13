@@ -18,5 +18,11 @@ public class BuildingProfile:Profile
                 }));
 
         // rest of members are automapped by Type+name
+
+        CreateMap<Building, BuildingDto>()
+            .ForMember(dto => dto.Country, opt => opt.MapFrom(src => src.Address.Country))
+            .ForMember(dto => dto.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
+            .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.Address.City))
+            .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.Address.Street));
     }
 }

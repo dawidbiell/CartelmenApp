@@ -22,9 +22,11 @@ namespace Cartelmen.Application.Services
             return await _buildingRepository.AddAsync(building);
         }
 
-        public async Task<IEnumerable<Building>> GetAll()
+        public async Task<IEnumerable<BuildingDto>> GetAll()
         {
-            return await _buildingRepository.GetAllAsync();
+            var list = await _buildingRepository.GetAllAsync();
+            var dtos = _mapper.Map<IEnumerable<BuildingDto>>(list);
+            return dtos;
         }
 
         public async Task<Building?> GetById(int id)
