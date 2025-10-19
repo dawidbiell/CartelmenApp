@@ -1,55 +1,44 @@
-﻿using Cartelmen.Application.DTOs;
-using Cartelmen.Application.Services;
-using Cartelmen.Domain.Entities;
+﻿using Cartelmen.Application.CQRS.Commands.WorkerCreate;
+using Cartelmen.Application.CQRS.Queries.WorkersGetAll;
+using Cartelmen.Application.CQRS.Queries.WorkersGetById;
+using Cartelmen.Application.DTOs;
 using FluentValidation;
-using Microsoft.AspNetCore.Http.Extensions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class WorkersController : Controller
+public class WorkersController(
+    IMediator mediator,
+    IValidator<WorkerCreateCommand> validator) : Controller
 {
-    private readonly IWorkerService _workerService;
-    private readonly IValidator<WorkerDto> _validator;
-
-    public WorkersController(IWorkerService workerService, IValidator<WorkerDto> validator)
-    {
-        _workerService = workerService;
-        _validator = validator;
-    }
-
     [HttpPost]
-    public async Task<IResult> Create([FromBody] WorkerDto worker)
+    public async Task<IResult> Create(WorkerCreateCommand createCommand)
     {
-        var validationResult = await _validator.ValidateAsync(worker);
+        var validationResult = await validator.ValidateAsync(createCommand);
 
         if (!validationResult.IsValid)
         {
             return Results.ValidationProblem(validationResult.ToDictionary());
         }
 
-        await _workerService.Create(worker);
+        await mediator.Send(new WorkerCreateCommand());
         return Results.Ok();
-
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var building = await _workerService.GetById(id);
-        if (building == null)
-        {
-            return NotFound();
-        }
-        return Ok(building);
+        var worker = await mediator.Send(new WorkersGetByIdQuery(id));
+        return Ok(worker);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var workers = await _workerService.GetAll();
+        var workers = await mediator.Send(new WorkersGetAllQuery());
         return Ok(workers);
     }
 }
