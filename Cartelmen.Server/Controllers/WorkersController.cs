@@ -49,7 +49,7 @@ public class WorkersController : Controller
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var buildings = await _workerService.GetAll();
-        return Ok(buildings);
+        var workers = await _workerService.GetAll();
+        return Ok(workers);
     }
 }
