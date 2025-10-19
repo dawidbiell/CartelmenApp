@@ -1,9 +1,10 @@
-﻿using FluentValidation;
+﻿using Cartelmen.Application.DTOs;
+using FluentValidation;
 
-namespace Cartelmen.Application.DTOs;
-public class WorkerDtoValidation :AbstractValidator<WorkerDto>
+namespace Cartelmen.Application.CQRS.Commands.WorkerCreate;
+public class WorkerCreateCommandValidator :AbstractValidator<WorkerCreateCommand>
 {
-    public WorkerDtoValidation()
+    public WorkerCreateCommandValidator()
     {
         RuleFor(w => w.FirstName)
             .NotEmpty();
