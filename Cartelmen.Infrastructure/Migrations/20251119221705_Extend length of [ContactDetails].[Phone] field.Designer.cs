@@ -4,6 +4,7 @@ using Cartelmen.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cartelmen.Infrastructure.Migrations
 {
     [DbContext(typeof(CartelmenDbContext))]
-    partial class CartelmenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251119221705_Extend length of [ContactDetails].[Phone] field")]
+    partial class ExtendlengthofContactDetailsPhonefield
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,7 @@ namespace Cartelmen.Infrastructure.Migrations
                     b.HasIndex("IsDeleted")
                         .HasFilter("IsDeleted = 0");
 
-                    b.ToTable("Buildings", (string)null);
+                    b.ToTable("Buildings");
                 });
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.BuildingWorker", b =>
@@ -80,7 +83,7 @@ namespace Cartelmen.Infrastructure.Migrations
 
                     b.HasIndex("WorkerId");
 
-                    b.ToTable("BuildingWorker", (string)null);
+                    b.ToTable("BuildingWorker");
                 });
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.ContactDetails", b =>
@@ -105,7 +108,7 @@ namespace Cartelmen.Infrastructure.Migrations
                     b.HasIndex("WorkerId")
                         .IsUnique();
 
-                    b.ToTable("ContactDetails", (string)null);
+                    b.ToTable("ContactDetails");
                 });
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.TimeTrack", b =>
@@ -138,7 +141,7 @@ namespace Cartelmen.Infrastructure.Migrations
 
                     b.HasIndex("WorkerId");
 
-                    b.ToTable("TimeTracks", (string)null);
+                    b.ToTable("TimeTracks");
                 });
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.Worker", b =>
@@ -174,12 +177,12 @@ namespace Cartelmen.Infrastructure.Migrations
                     b.HasIndex("IsDeleted")
                         .HasFilter("IsDeleted = 0");
 
-                    b.ToTable("Workers", (string)null);
+                    b.ToTable("Workers");
                 });
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.Building", b =>
                 {
-                    b.OwnsOne("Cartelmen.Domain.Entities.Building.Address#Cartelmen.Domain.Entities.Address", "Address", b1 =>
+                    b.OwnsOne("Cartelmen.Domain.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<int>("BuildingId")
                                 .HasColumnType("int");
@@ -198,7 +201,7 @@ namespace Cartelmen.Infrastructure.Migrations
 
                             b1.HasKey("BuildingId");
 
-                            b1.ToTable("Buildings", (string)null);
+                            b1.ToTable("Buildings");
 
                             b1.WithOwner()
                                 .HasForeignKey("BuildingId");
