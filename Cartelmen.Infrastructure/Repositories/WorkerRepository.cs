@@ -15,11 +15,14 @@ public class WorkerRepository: IWorkerRepository
 
     public async Task<IEnumerable<Worker>> GetAllAsync()
         =>  await _dbContext.Workers
+            .Include(w => w.Contact)
             .IgnoreQueryFilters()
             .ToListAsync();
     
     public async Task<Worker?> GetByIdAsync(Guid id) 
-        => await _dbContext.Workers.FindAsync(id);
+        => await _dbContext.Workers
+            .Include(w => w.Contact)
+            .FirstOrDefaultAsync(w => w.Id == id);
 
     public async Task<Worker> AddAsync(Worker worker)
     {

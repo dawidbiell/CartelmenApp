@@ -4,6 +4,6 @@ using MediatR;
 
 namespace Cartelmen.Application.CQRS.Commands.WorkerCreate;
 
-public class WorkerCreateCommand : WorkerDto, IRequest<Worker>
+public class WorkerCreateCommand : WorkerDto, IRequest<Guid>
 {
 }

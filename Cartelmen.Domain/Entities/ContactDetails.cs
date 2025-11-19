@@ -7,7 +7,7 @@ public class ContactDetails
 {
     [Key]
     public Guid Id { get; set; }
-    [MaxLength(16)]
+    [MaxLength(20)]
     public string? Phone { get; set; }
     [MaxLength(64)]
     public string? Email { get; set; }

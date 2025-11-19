@@ -18,8 +18,8 @@ public class WorkersGetByIdQueryHandler : IRequestHandler<WorkersGetByIdQuery, W
 
     public async Task<WorkerDto> Handle(WorkersGetByIdQuery request, CancellationToken cancellationToken)
     {
-        var workerDto = _mapper.Map<WorkerDto>(
-            await _workerRepository.GetByIdAsync(request.Id));
+        var worker = await _workerRepository.GetByIdAsync(request.Id);
+        var workerDto = _mapper.Map<WorkerDto>(worker);
         return  workerDto;
     }
 }

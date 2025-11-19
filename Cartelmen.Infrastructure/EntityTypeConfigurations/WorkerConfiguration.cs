@@ -10,7 +10,7 @@ public class WorkerConfiguration: IEntityTypeConfiguration<Worker>
     {
         builder.HasOne(cd => cd.Contact)
             .WithOne(w => w.Worker)
-            .HasForeignKey<ContactDetails>(cd => cd.WorkerId);
+            .HasForeignKey<ContactDetails>(w => w.WorkerId);
 
         builder.HasMany(w => w.Buildings)
             .WithMany(b => b.Workers)

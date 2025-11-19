@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Cartelmen.Application.CQRS.Commands.WorkerCreate;
 
-public class WorkerCreateCommandHandler : IRequestHandler<WorkerCreateCommand, Worker>
+public class WorkerCreateCommandHandler : IRequestHandler<WorkerCreateCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IWorkerRepository _workerRepository;
@@ -16,9 +16,10 @@ public class WorkerCreateCommandHandler : IRequestHandler<WorkerCreateCommand, W
         _workerRepository = workerRepository;
     }
 
-    public async Task<Worker> Handle(WorkerCreateCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(WorkerCreateCommand request, CancellationToken cancellationToken)
     {
         var worker = _mapper.Map<Worker>(request);
-        return await _workerRepository.AddAsync(worker);
+        await _workerRepository.AddAsync(worker);
+        return worker.Id;
     }
 }

@@ -24,8 +24,8 @@ public class WorkersController(
             return Results.ValidationProblem(validationResult.ToDictionary());
         }
 
-        await mediator.Send(new WorkerCreateCommand());
-        return Results.Ok();
+        var worker = await mediator.Send(createCommand);
+        return Results.Ok(worker);
     }
 
     [HttpGet("{id}")]
