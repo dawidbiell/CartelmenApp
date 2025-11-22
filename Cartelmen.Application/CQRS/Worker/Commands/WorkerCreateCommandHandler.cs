@@ -2,7 +2,7 @@ using AutoMapper;
 using Cartelmen.Domain.Interfaces;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Commands.Worker;
+namespace Cartelmen.Application.CQRS.Worker.Commands;
 
 public class WorkerCreateCommandHandler : IRequestHandler<WorkerCreateCommand, Guid>
 {

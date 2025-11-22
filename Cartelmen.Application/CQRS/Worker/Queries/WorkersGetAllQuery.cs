@@ -1,7 +1,7 @@
 using Cartelmen.Application.DTOs;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Queries.Worker;
+namespace Cartelmen.Application.CQRS.Worker.Queries;
 
 public class WorkerGetAllQuery : IRequest<IEnumerable<WorkerDto>>
 {

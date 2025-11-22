@@ -3,7 +3,7 @@ using Cartelmen.Application.DTOs;
 using Cartelmen.Domain.Interfaces;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Queries.WorkersGetById;
+namespace Cartelmen.Application.CQRS.Worker.Queries;
 
 public class WorkersGetByIdQueryHandler : IRequestHandler<WorkersGetByIdQuery, WorkerDto>
 {

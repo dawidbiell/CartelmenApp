@@ -1,7 +1,6 @@
 using Cartelmen.Application.DTOs;
-using Cartelmen.Domain.Entities;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Queries.WorkersGetById;
+namespace Cartelmen.Application.CQRS.Worker.Queries;
 
 public record WorkersGetByIdQuery(Guid Id) : IRequest<WorkerDto>;

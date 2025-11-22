@@ -1,6 +1,5 @@
-﻿using Cartelmen.Application.CQRS.Commands.Worker;
-using Cartelmen.Application.CQRS.Queries.Worker;
-using Cartelmen.Application.CQRS.Queries.WorkersGetById;
+﻿using Cartelmen.Application.CQRS.Worker.Commands;
+using Cartelmen.Application.CQRS.Worker.Queries;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
