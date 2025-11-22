@@ -1,5 +1,7 @@
-﻿using Cartelmen.Application.DTOs;
+﻿using Cartelmen.Application.CQRS.Commands.Building;
+using Cartelmen.Application.CQRS.Queries.Building;
 using Cartelmen.Application.Services;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers
@@ -8,18 +10,21 @@ namespace Cartelmen.Server.Controllers
     [Route("api/[controller]")]
     public class BuildingsController : ControllerBase
     {
+        private readonly IMediator _mediator;
         private readonly IBuildingService _buildingService;
 
-        public BuildingsController(IBuildingService buildingService)
-        {      
+        public BuildingsController(IMediator mediator, IBuildingService buildingService)
+        {
+            _mediator = mediator;
             _buildingService = buildingService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BuildingDto building)
+        public async Task<IActionResult> Create(BuildingCreateCommand  createCommand)
         {
-            var createdBuilding = await _buildingService.Create(building);
-            return Ok(createdBuilding);
+            
+            var buildingId = await _mediator.Send(createCommand);
+            return Ok(buildingId);
         }
 
         [HttpGet("{id}")]
@@ -36,7 +41,7 @@ namespace Cartelmen.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var buildings = await _buildingService.GetAll();
+            var buildings = await _mediator.Send(new BuildingsGetAllQuery());
             return Ok(buildings);
         }
 

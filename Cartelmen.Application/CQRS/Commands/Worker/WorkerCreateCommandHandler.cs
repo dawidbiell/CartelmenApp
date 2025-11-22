@@ -17,7 +17,7 @@ public class WorkerCreateCommandHandler : IRequestHandler<WorkerCreateCommand, G
 
     public async Task<Guid> Handle(WorkerCreateCommand request, CancellationToken cancellationToken)
     {
-        var worker = _mapper.Map<Worker>(request);
+        var worker = _mapper.Map<Domain.Entities.Worker>(request);
         await _workerRepository.AddAsync(worker);
         return worker.Id;
     }
