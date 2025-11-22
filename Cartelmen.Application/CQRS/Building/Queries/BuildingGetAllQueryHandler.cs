@@ -3,7 +3,7 @@ using Cartelmen.Application.DTOs;
 using Cartelmen.Domain.Interfaces;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Queries.Building;
+namespace Cartelmen.Application.CQRS.Building.Queries;
 
 public class BuildingsGetAllQueryHandler:  IRequestHandler<BuildingsGetAllQuery, IEnumerable<BuildingDto>>
 {

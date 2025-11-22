@@ -1,9 +1,8 @@
 using AutoMapper;
 using Cartelmen.Domain.Interfaces;
-using Cartelmen.Domain.Entities;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Commands.Building;
+namespace Cartelmen.Application.CQRS.Building.Commands;
 
 public class BuildingCreateCommandHandler(
     IMapper mapper,
