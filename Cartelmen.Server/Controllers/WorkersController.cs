@@ -1,7 +1,6 @@
-﻿using Cartelmen.Application.CQRS.Commands.WorkerCreate;
-using Cartelmen.Application.CQRS.Queries.WorkersGetAll;
+﻿using Cartelmen.Application.CQRS.Commands.Worker;
+using Cartelmen.Application.CQRS.Queries.Worker;
 using Cartelmen.Application.CQRS.Queries.WorkersGetById;
-using Cartelmen.Application.DTOs;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +37,7 @@ public class WorkersController(
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var workers = await mediator.Send(new WorkersGetAllQuery());
+        var workers = await mediator.Send(new WorkerGetAllQuery());
         return Ok(workers);
     }
 }

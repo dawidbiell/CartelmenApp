@@ -1,7 +1,6 @@
-﻿using Cartelmen.Application.DTOs;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace Cartelmen.Application.CQRS.Commands.WorkerCreate;
+namespace Cartelmen.Application.CQRS.Commands.Worker;
 public class WorkerCreateCommandValidator :AbstractValidator<WorkerCreateCommand>
 {
     public WorkerCreateCommandValidator()

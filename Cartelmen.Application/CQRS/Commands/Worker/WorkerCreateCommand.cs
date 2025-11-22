@@ -1,8 +1,7 @@
 using Cartelmen.Application.DTOs;
-using Cartelmen.Domain.Entities;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Commands.WorkerCreate;
+namespace Cartelmen.Application.CQRS.Commands.Worker;
 
 public class WorkerCreateCommand : WorkerDto, IRequest<Guid>
 {
