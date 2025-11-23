@@ -1,5 +1,5 @@
-﻿using Cartelmen.Application.CQRS.Commands.Building;
-using Cartelmen.Application.CQRS.Queries.Building;
+﻿using Cartelmen.Application.CQRS.Building.Commands;
+using Cartelmen.Application.CQRS.Building.Queries;
 using Cartelmen.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

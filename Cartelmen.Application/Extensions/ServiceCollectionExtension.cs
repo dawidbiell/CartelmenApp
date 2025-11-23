@@ -1,4 +1,4 @@
-﻿using Cartelmen.Application.CQRS.Commands.Worker;
+﻿using Cartelmen.Application.CQRS.Worker.Commands;
 using Cartelmen.Application.Mappings;
 using Cartelmen.Application.Services;
 using FluentValidation;
