@@ -7,34 +7,34 @@ namespace Cartelmen.Application.Services
 {
     public class BuildingService : IBuildingService
     {
-        private readonly IBuildingRepository _buildingRepository;
+        private readonly ISpotRepository _buildingRepository;
         private readonly IMapper _mapper;
 
-        public BuildingService(IBuildingRepository buildingRepository, IMapper mapper)
+        public BuildingService(ISpotRepository buildingRepository, IMapper mapper)
         {
             _buildingRepository = buildingRepository;
             _mapper = mapper;
         }
 
-        public async Task<Building> Create(BuildingDto buildingDto)
+        public async Task<Spot> Create(SpotDto buildingDto)
         {
-            var building = _mapper.Map<Building>(buildingDto);
+            var building = _mapper.Map<Spot>(buildingDto);
             return await _buildingRepository.AddAsync(building);
         }
 
-        public async Task<IEnumerable<BuildingDto>> GetAll()
+        public async Task<IEnumerable<SpotDto>> GetAll()
         {
             var list = await _buildingRepository.GetAllAsync();
-            var dtos = _mapper.Map<IEnumerable<BuildingDto>>(list);
+            var dtos = _mapper.Map<IEnumerable<SpotDto>>(list);
             return dtos;
         }
 
-        public async Task<Building?> GetById(int id)
+        public async Task<Spot?> GetById(int id)
         {
             return await _buildingRepository.GetByIdAsync(id);
         }
 
-        public async Task<Building?> Update(Building building)
+        public async Task<Spot?> Update(Spot building)
         {
             return await _buildingRepository.UpdateAsync(building);
         }

@@ -7,7 +7,7 @@ public class BuildingProfile:Profile
 {
     public BuildingProfile()
     {
-        CreateMap<BuildingDto, Building>(  )
+        CreateMap<SpotDto, Spot>(  )
             .ForMember(e => e.Address, a => a
                 .MapFrom(dto => new Address()
                 {
@@ -19,7 +19,7 @@ public class BuildingProfile:Profile
 
         // rest of members are automapped by Type+name
 
-        CreateMap<Building, BuildingDto>()
+        CreateMap<Spot, SpotDto>()
             .ForMember(dto => dto.Country, opt => opt.MapFrom(src => src.Address.Country))
             .ForMember(dto => dto.PostalCode, opt => opt.MapFrom(src => src.Address.PostalCode))
             .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.Address.City))

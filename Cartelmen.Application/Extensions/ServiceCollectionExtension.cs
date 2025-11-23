@@ -1,4 +1,4 @@
-﻿using Cartelmen.Application.CQRS.Worker.Commands;
+﻿using Cartelmen.Application.CQRS.Person.Commands;
 using Cartelmen.Application.Mappings;
 using Cartelmen.Application.Services;
 using FluentValidation;
@@ -11,14 +11,14 @@ public static class ServiceCollectionExtension
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddMediatR(cfg => 
-            cfg.RegisterServicesFromAssembly(typeof(WorkerCreateCommand).Assembly));
+            cfg.RegisterServicesFromAssembly(typeof(PersonCreateCommand).Assembly));
         
         services.AddScoped<IBuildingService, BuildingService>();
         
         services.AddAutoMapper(typeof(WorkerProfile));
         services.AddAutoMapper(typeof(BuildingProfile));
 
-        services.AddValidatorsFromAssemblyContaining<WorkerCreateCommandValidator>()
+        services.AddValidatorsFromAssemblyContaining<PersonCreateCommandValidator>()
             .AddFluentValidationAutoValidation();
     }
 

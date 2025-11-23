@@ -1,5 +1,5 @@
 ﻿namespace Cartelmen.Application.DTOs;
-public class WorkerDto
+public class PersonDto
 {
     // Validation by Fluent Validation in WorkerDtoValidation.cs
     public string FirstName { get; set; } = default!;

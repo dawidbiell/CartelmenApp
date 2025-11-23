@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Cartelmen.Application.DTOs;
-public class BuildingDto
+public class SpotDto
 {
 
     // Validation DTO by DataAnnotations

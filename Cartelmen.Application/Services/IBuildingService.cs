@@ -7,10 +7,10 @@ namespace Cartelmen.Application.Services
 {
     public interface IBuildingService
     {
-        Task<Building> Create(BuildingDto building);
-        Task<Building?> GetById(int id);
-        Task<IEnumerable<BuildingDto>> GetAll();
-        Task<Building?> Update(Building building);
+        Task<Spot> Create(SpotDto building);
+        Task<Spot?> GetById(int id);
+        Task<IEnumerable<SpotDto>> GetAll();
+        Task<Spot?> Update(Spot building);
         Task<bool> DeleteById(int id);
     }
 }

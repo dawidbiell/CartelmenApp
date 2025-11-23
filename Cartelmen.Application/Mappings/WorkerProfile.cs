@@ -7,7 +7,7 @@ public class WorkerProfile : Profile
 {
     public WorkerProfile()
     {
-        CreateMap<WorkerDto, Worker>()
+        CreateMap<PersonDto, Person>()
             .ForMember(e => e.Contact, 
                 cd => cd.MapFrom(dto => new ContactDetails()
                 {
@@ -17,7 +17,7 @@ public class WorkerProfile : Profile
             .ForMember(e => e.PayRate, pr => pr.MapFrom(dto => dto.PayRate));
         // rest of members are automapped by Type+name
 
-        CreateMap<Worker, WorkerDto>()
+        CreateMap<Person, PersonDto>()
             .ForMember(dto => dto.Email, opt => opt.MapFrom(src => src.Contact.Email))
             .ForMember(dto => dto.Phone, opt => opt.MapFrom(src => src.Contact.Phone));
 
