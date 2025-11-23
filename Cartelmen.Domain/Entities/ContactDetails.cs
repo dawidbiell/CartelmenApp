@@ -12,7 +12,7 @@ public class ContactDetails
     [MaxLength(64)]
     public string? Email { get; set; }
 
-    public Worker Worker { get; set; }
+    public Person Worker { get; set; }
     public Guid WorkerId { get; set; }
 
 }

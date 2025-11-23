@@ -16,11 +16,11 @@ namespace Cartelmen.Domain.Entities
         public decimal WorkHours { get; set; } = 0m;
 
 
-        public Building Building { get; set; }
-        public int BuildingId { get; set; }
+        public Spot Spot { get; set; }
+        public int SpotId { get; set; }
 
-        public Worker Worker { get; set; }
-        public Guid WorkerId { get; set; }
+        public Person Person { get; set; }
+        public Guid PersonId { get; set; }
 
 
         public bool IsDeleted { get; set; }

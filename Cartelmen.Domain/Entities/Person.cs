@@ -4,7 +4,7 @@ using Cartelmen.Domain.Common;
 
 namespace Cartelmen.Domain.Entities
 {
-    public class Worker : ISoftDeletable
+    public class Person : ISoftDeletable
     {
         [Key]
         public required Guid Id { get; set; }
@@ -23,7 +23,7 @@ namespace Cartelmen.Domain.Entities
 
         
         public ContactDetails Contact { get; set; }
-        public IList<Building> Buildings { get; set; } = new List<Building>();
+        public IList<Spot> Spots { get; set; } = new List<Spot>();
 
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAtUtc { get; set; }

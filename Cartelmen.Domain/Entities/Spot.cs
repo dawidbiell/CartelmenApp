@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cartelmen.Domain.Entities
 {
-    public class Building :ISoftDeletable
+    public class Spot :ISoftDeletable
     {
         [Key]
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace Cartelmen.Domain.Entities
 
 
         public Address Address { get; set; } = default!;
-        public IList<Worker> Workers { get; set; } = new List<Worker>();
+        public IList<Person> Persons { get; set; } = new List<Person>();
 
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAtUtc { get; set; }
