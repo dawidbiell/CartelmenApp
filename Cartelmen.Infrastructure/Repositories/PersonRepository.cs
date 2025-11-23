@@ -4,43 +4,43 @@ using Cartelmen.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Infrastructure.Repositories;
-public class WorkerRepository: IWorkerRepository
+public class PersonRepository: IPersonRepository
 {
     private readonly CartelmenDbContext _dbContext;
 
-    public WorkerRepository(CartelmenDbContext dbContext)
+    public PersonRepository(CartelmenDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Worker>> GetAllAsync()
-        =>  await _dbContext.Workers
+    public async Task<IEnumerable<Person>> GetAllAsync()
+        =>  await _dbContext.Person
             .Include(w => w.Contact)
             .IgnoreQueryFilters()
             .ToListAsync();
     
-    public async Task<Worker?> GetByIdAsync(Guid id) 
-        => await _dbContext.Workers
+    public async Task<Person?> GetByIdAsync(Guid id) 
+        => await _dbContext.Person
             .Include(w => w.Contact)
             .FirstOrDefaultAsync(w => w.Id == id);
 
-    public async Task<Worker> AddAsync(Worker worker)
+    public async Task<Person> AddAsync(Person person)
     {
-        _dbContext.Workers.Add(worker);
+        _dbContext.Person.Add(person);
         await _dbContext.SaveChangesAsync();
-        return worker;
+        return person;
     }
 
-    public async Task<Worker?> UpdateAsync(Worker worker)
+    public async Task<Person?> UpdateAsync(Person person)
     {
-        _dbContext.Workers.Update(worker);
+        _dbContext.Person.Update(person);
         var result = await _dbContext.SaveChangesAsync();
-        return result > 0 ? worker : default;
+        return result > 0 ? person : default;
     }
 
     public async Task<bool> DeleteByIdAsync(Guid id)
     {
-        var result = await _dbContext.Workers
+        var result = await _dbContext.Person
             .Where(w => w.Id == id && !w.IsDeleted)
             .ExecuteUpdateAsync(w => w
                 .SetProperty(p => p.IsDeleted, true)
@@ -48,14 +48,5 @@ public class WorkerRepository: IWorkerRepository
             );
 
         return result > 0;
-        //var worker = await _dbContext.Workers.FindAsync(id);
-        //if (worker == null)
-        //{
-        //    return false;
-        //}
-
-        //_dbContext.Workers.Remove(worker);
-        //await _dbContext.SaveChangesAsync();
-        //return true;
     }
 }

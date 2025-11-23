@@ -6,9 +6,9 @@ namespace Cartelmen.Infrastructure.Persistence
 {
     public class CartelmenDbContext : DbContext
     {
-        public DbSet<Worker> Workers { get; set; }
+        public DbSet<Person> Person { get; set; }
         public DbSet<ContactDetails> ContactDetails { get; set; }
-        public DbSet<Building> Buildings { get; set; }
+        public DbSet<Spot> Spot { get; set; }
 
         public DbSet<TimeTrack> TimeTracks { get; set; }
 
@@ -19,8 +19,8 @@ namespace Cartelmen.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new BuildingConfiguration());
-            modelBuilder.ApplyConfiguration(new WorkerConfiguration());
+            modelBuilder.ApplyConfiguration(new SpotConfiguration());
+            modelBuilder.ApplyConfiguration(new PersonConfiguration());
             modelBuilder.ApplyConfiguration(new TimeTrackConfiguration());
         }
     }

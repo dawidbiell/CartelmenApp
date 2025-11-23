@@ -7,6 +7,6 @@ public  class TimeTrackConfiguration : IEntityTypeConfiguration<TimeTrack>
 {
     public void Configure(EntityTypeBuilder<TimeTrack> builder)
     {
-        builder.HasKey(t => new { t.WorkDate, t.BuildingId, t.WorkerId });
+        builder.HasKey(t => new { t.WorkDate, t.SpotId, t.PersonId });
     }
 }

@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cartelmen.Infrastructure.EntityTypeConfigurations;
 
-public class BuildingConfiguration: IEntityTypeConfiguration<Building>
+public class SpotConfiguration: IEntityTypeConfiguration<Spot>
 {
-    public void Configure(EntityTypeBuilder<Building> builder)
+    public void Configure(EntityTypeBuilder<Spot> builder)
     {
         builder.OwnsOne(x => x.Address);
 
         // Soft delete configuration
         builder.HasQueryFilter(b => !b.IsDeleted);
         builder.HasIndex( w => w.IsDeleted)
-            .HasFilter($"{nameof(Building.IsDeleted)} = 0");
+            .HasFilter($"{nameof(Spot.IsDeleted)} = 0");
     }
 }

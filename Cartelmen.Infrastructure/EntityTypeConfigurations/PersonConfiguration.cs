@@ -4,23 +4,23 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cartelmen.Infrastructure.EntityTypeConfigurations;
 
-public class WorkerConfiguration: IEntityTypeConfiguration<Worker>
+public class PersonConfiguration: IEntityTypeConfiguration<Person>
 {
-    public void Configure(EntityTypeBuilder<Worker> builder)
+    public void Configure(EntityTypeBuilder<Person> builder)
     {
         builder.HasOne(cd => cd.Contact)
             .WithOne(w => w.Worker)
             .HasForeignKey<ContactDetails>(w => w.WorkerId);
 
-        builder.HasMany(w => w.Buildings)
-            .WithMany(b => b.Workers)
-            .UsingEntity<BuildingWorker>(
-                w => w.HasOne(bw => bw.Building)
+        builder.HasMany(w => w.Spots)
+            .WithMany(b => b.Persons)
+            .UsingEntity<SpotPerson>(
+                w => w.HasOne(sp => sp.Spot)
                     .WithMany()
-                    .HasForeignKey(bw => bw.BuildingId),
-                w => w.HasOne(bw => bw.Worker)
+                    .HasForeignKey(bw => bw.SpotId),
+                w => w.HasOne(bw => bw.Person)
                     .WithMany()
-                    .HasForeignKey(bw => bw.WorkerId),
+                    .HasForeignKey(bw => bw.PersonId),
                 bw =>
                 {
                     bw.Property(e => e.AssignmentDate).HasDefaultValueSql("getutcdate()");
@@ -32,7 +32,7 @@ public class WorkerConfiguration: IEntityTypeConfiguration<Worker>
         builder.HasQueryFilter(w => !w.IsDeleted);
 
         builder.HasIndex( w => w.IsDeleted)
-            .HasFilter($"{nameof(Worker.IsDeleted)} = 0");
+            .HasFilter($"{nameof(Person.IsDeleted)} = 0");
 
     }
 }

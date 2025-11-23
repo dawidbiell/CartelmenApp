@@ -5,44 +5,44 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Infrastructure.Repositories
 {
-    public class BuildingRepository : IBuildingRepository
+    public class SpotRepository : ISpotRepository
     {
         private readonly CartelmenDbContext _dbContext;
 
-        public BuildingRepository(CartelmenDbContext dbContext)
+        public SpotRepository(CartelmenDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<Building> AddAsync(Building building)
+        public async Task<Spot> AddAsync(Spot spot)
         {
-            _dbContext.Buildings.Add(building);
+            _dbContext.Spot.Add(spot);
             await _dbContext.SaveChangesAsync();
-            return building;
+            return spot;
         }
 
-        public async Task<IEnumerable<Building>> GetAllAsync()
+        public async Task<IEnumerable<Spot>> GetAllAsync()
         {
-            return await _dbContext.Buildings
+            return await _dbContext.Spot
                 .IgnoreQueryFilters()
                 .ToListAsync();
         }
 
-        public async Task<Building?> GetByIdAsync(int id)
+        public async Task<Spot?> GetByIdAsync(int id)
         {
-            return await _dbContext.Buildings.FindAsync(id);
+            return await _dbContext.Spot.FindAsync(id);
         }
 
-        public async Task<Building?> UpdateAsync(Building building)
+        public async Task<Spot?> UpdateAsync(Spot spot)
         {
-            _dbContext.Buildings.Update(building);
+            _dbContext.Spot.Update(spot);
             var result = await _dbContext.SaveChangesAsync();
-            return result > 0 ? building : null;
+            return result > 0 ? spot : null;
         }
 
         public async Task<bool> DeleteByIdAsync(int id)
         {
-            var result = await _dbContext.Buildings
+            var result = await _dbContext.Spot
                 .Where(b => b.Id == id && !b.IsDeleted)
                 .ExecuteUpdateAsync(b => b
                     .SetProperty(building => building.IsDeleted ,true)
