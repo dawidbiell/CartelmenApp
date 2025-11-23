@@ -13,33 +13,33 @@ public class WorkerService : IWorkerService
         _db = db;
     }
 
-    public async Task<IEnumerable<Worker?>> GetAllAsync()
+    public async Task<IEnumerable<Person?>> GetAllAsync()
     {
-        return await _db.Workers.IgnoreQueryFilters().ToListAsync();
+        return await _db.Person.IgnoreQueryFilters().ToListAsync();
     }
 
-    public async Task<Worker?> GetByIdAsync(Guid id)
+    public async Task<Person?> GetByIdAsync(Guid id)
     {
-        return await _db.Workers.FindAsync(id);
+        return await _db.Person.FindAsync(id);
     }
 
-    public async Task<Worker?> AddAsync(Worker? worker)
+    public async Task<Person?> AddAsync(Person? worker)
     {
-        _db.Workers.Add(worker);
+        _db.Person.Add(worker);
         await _db.SaveChangesAsync();
         return worker;
     }
 
-    public async Task<Worker?> UpdateAsync(Worker? worker)
+    public async Task<Person?> UpdateAsync(Person? worker)
     {
-        _db.Workers.Update(worker);
+        _db.Person.Update(worker);
         await _db.SaveChangesAsync();
         return worker;
     }
 
     public async Task<bool> DeleteByIdAsync(Guid id)
     {
-        var result = await _db.Workers
+        var result = await _db.Person
             .Where(w => w.Id == id && !w.IsDeleted)
             .ExecuteUpdateAsync(w => w
                 .SetProperty(p => p.IsDeleted, true)

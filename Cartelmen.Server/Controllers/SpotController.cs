@@ -1,5 +1,6 @@
-﻿using Cartelmen.Application.CQRS.Building.Commands;
-using Cartelmen.Application.CQRS.Building.Queries;
+﻿using Cartelmen.Application.CQRS.Building.Queries;
+using Cartelmen.Application.CQRS.Spot.Commands;
+using Cartelmen.Application.CQRS.Spot.Queries;
 using Cartelmen.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,41 +9,41 @@ namespace Cartelmen.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BuildingsController : ControllerBase
+    public class SpotController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IBuildingService _buildingService;
+        private readonly IBuildingService _service;
 
-        public BuildingsController(IMediator mediator, IBuildingService buildingService)
+        public SpotController(IMediator mediator, IBuildingService service)
         {
             _mediator = mediator;
-            _buildingService = buildingService;
+            _service = service;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BuildingCreateCommand  createCommand)
+        public async Task<IActionResult> Create(SpotCreateCommand  createCommand)
         {
             
-            var buildingId = await _mediator.Send(createCommand);
-            return Ok(buildingId);
+            var entityId = await _mediator.Send(createCommand);
+            return Ok(entityId);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var building = await _buildingService.GetById(id);
-            if (building == null)
+            var entity = await _service.GetById(id);
+            if (entity == null)
             {
                 return NotFound();
             }
-            return Ok(building);
+            return Ok(entity);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var buildings = await _mediator.Send(new BuildingsGetAllQuery());
-            return Ok(buildings);
+            var entities = await _mediator.Send(new SpotGetAllQuery());
+            return Ok(entities);
         }
 
         //[HttpPut("{id}")]

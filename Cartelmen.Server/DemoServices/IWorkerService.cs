@@ -4,10 +4,10 @@ namespace Cartelmen.Server.DemoServices
 {
     public interface IWorkerService
     {
-        Task<IEnumerable<Worker?>> GetAllAsync();
-        Task<Worker?> GetByIdAsync(Guid id);
-        Task<Worker?> AddAsync(Worker? worker);
-        Task<Worker?> UpdateAsync(Worker? worker);
+        Task<IEnumerable<Person?>> GetAllAsync();
+        Task<Person?> GetByIdAsync(Guid id);
+        Task<Person?> AddAsync(Person? worker);
+        Task<Person?> UpdateAsync(Person? worker);
         Task<bool> DeleteByIdAsync(Guid id);
     }
 }

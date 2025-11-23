@@ -1,5 +1,5 @@
-﻿using Cartelmen.Application.CQRS.Worker.Commands;
-using Cartelmen.Application.CQRS.Worker.Queries;
+﻿using Cartelmen.Application.CQRS.Person.Commands;
+using Cartelmen.Application.CQRS.Person.Queries;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +8,12 @@ namespace Cartelmen.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class WorkersController(
+public class PersonsController(
     IMediator mediator,
-    IValidator<WorkerCreateCommand> validator) : Controller
+    IValidator<PersonCreateCommand> validator) : Controller
 {
     [HttpPost]
-    public async Task<IResult> Create(WorkerCreateCommand createCommand)
+    public async Task<IResult> Create(PersonCreateCommand createCommand)
     {
         var validationResult = await validator.ValidateAsync(createCommand);
 
@@ -22,21 +22,21 @@ public class WorkersController(
             return Results.ValidationProblem(validationResult.ToDictionary());
         }
 
-        var worker = await mediator.Send(createCommand);
-        return Results.Ok(worker);
+        var entity = await mediator.Send(createCommand);
+        return Results.Ok(entity);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var worker = await mediator.Send(new WorkersGetByIdQuery(id));
-        return Ok(worker);
+        var entity = await mediator.Send(new PersonGetByIdQuery(id));
+        return Ok(entity);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var workers = await mediator.Send(new WorkerGetAllQuery());
-        return Ok(workers);
+        var entities = await mediator.Send(new PersonGetAllQuery());
+        return Ok(entities);
     }
 }
