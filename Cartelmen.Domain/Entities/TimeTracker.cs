@@ -5,24 +5,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Domain.Entities
 {
-    public class TimeTrack : ISoftDeletable
+    public class TimeTracker : ISoftDeletable
     {
         public int Id { get; set; }
-
+        
         [Required] [Column(TypeName = "date")]
+        
         public DateOnly WorkDate { get; set; }
-
+        
         [Required] [Precision(4, 2)] 
-        public decimal WorkHours { get; set; } = 0m;
+        public decimal WorkTime { get; set; } = 0m;
+        
+        [Column(TypeName = "money")]
+        public decimal PayRate { get; set; }
+        
+        public bool IsSubmitted { get; set; }
+        
+        public string? UpdatedBy { get; set; }
+        
+        public DateTime? UpdatedAtUtc { get; set; }
+        
+        
+        public SpotPerson SpotPerson { get; set; }
+        public int WhereWhoId { get; set; }
 
-
-        public Spot Spot { get; set; }
-        public int SpotId { get; set; }
-
-        public Person Person { get; set; }
-        public Guid PersonId { get; set; }
-
-
+        // soft delete
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAtUtc { get; set; }
     }

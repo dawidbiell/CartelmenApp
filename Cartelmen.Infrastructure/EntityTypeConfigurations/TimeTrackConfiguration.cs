@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cartelmen.Infrastructure.EntityTypeConfigurations;
-public  class TimeTrackConfiguration : IEntityTypeConfiguration<TimeTrack>
+public  class TimeTrackConfiguration : IEntityTypeConfiguration<TimeTracker>
 {
-    public void Configure(EntityTypeBuilder<TimeTrack> builder)
+    public void Configure(EntityTypeBuilder<TimeTracker> builder)
     {
-        builder.HasKey(t => new { t.WorkDate, t.SpotId, t.PersonId });
+        builder.HasKey(t => new { t.WorkDate, t.WhereWhoId });
     }
 }
