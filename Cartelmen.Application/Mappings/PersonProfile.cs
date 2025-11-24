@@ -3,9 +3,9 @@ using Cartelmen.Application.DTOs;
 using Cartelmen.Domain.Entities;
 
 namespace Cartelmen.Application.Mappings;
-public class WorkerProfile : Profile
+public class PersonProfile : Profile
 {
-    public WorkerProfile()
+    public PersonProfile()
     {
         CreateMap<PersonDto, Person>()
             .ForMember(e => e.Contact, 

@@ -23,6 +23,8 @@ public class PersonConfiguration: IEntityTypeConfiguration<Person>
                     .HasForeignKey(bw => bw.PersonId),
                 bw =>
                 {
+                    bw.Property(e => e.Id).ValueGeneratedOnAdd();            // auto-increment
+                    bw.Property(e => e.PayRate).HasColumnType("decimal(18,2)");
                     bw.Property(e => e.AssignmentDate).HasDefaultValueSql("getutcdate()");
                 }
 

@@ -15,8 +15,8 @@ public static class ServiceCollectionExtension
         
         services.AddScoped<IBuildingService, BuildingService>();
         
-        services.AddAutoMapper(typeof(WorkerProfile));
-        services.AddAutoMapper(typeof(BuildingProfile));
+        services.AddAutoMapper(typeof(PersonProfile));
+        services.AddAutoMapper(typeof(SpotProfile));
 
         services.AddValidatorsFromAssemblyContaining<PersonCreateCommandValidator>()
             .AddFluentValidationAutoValidation();
