@@ -1,18 +1,19 @@
 ﻿using Bogus;
 using Cartelmen.Domain.Entities;
+using Person = Cartelmen.Domain.Entities.Person;
 
 namespace Cartelmen.Infrastructure.Seeds
 {
     internal static class DataGeneratorExtensions
     {
-        public static ContactDetails GenerateContact(this Worker worker, string locale = "pl")
+        public static ContactDetails GenerateContact(this Person person, string locale = "pl")
         {
             var contactDetail = new Faker<ContactDetails>(locale)
-                .Rules((f, w) =>
+                .Rules((f, p) =>
                 {
-                    w.Id = Guid.NewGuid();
-                    w.Phone = f.Phone.PhoneNumber();
-                    w.Email = f.Internet.Email(worker.FirstName, worker.LastName);
+                    p.Id = Guid.NewGuid();
+                    p.Phone = f.Phone.PhoneNumber();
+                    p.Email = f.Internet.Email(person.FirstName, person.LastName);
 
                 })
                 .Generate();

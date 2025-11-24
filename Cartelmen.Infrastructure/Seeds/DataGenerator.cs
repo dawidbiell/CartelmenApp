@@ -2,7 +2,6 @@
 using Bogus.DataSets;
 using Cartelmen.Domain.Entities;
 using Cartelmen.Infrastructure.Persistence;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Entity = Cartelmen.Domain.Entities;
 
@@ -26,23 +25,23 @@ namespace Cartelmen.Infrastructure.Seeds
             
 
 
-            var workerGenerator = new Faker<Worker>(Locale)
-                    .Rules((f, w) =>
+            var personGenerator = new Faker<Entity.Person>(Locale)
+                    .Rules((f, p) =>
                     {
                         //w.Id = Guid.NewGuid();
-                        w.FirstName = f.Name.FirstName( Name.Gender.Male);
-                        w.LastName = f.Name.LastName(Name.Gender.Male);
-                        w.HiringDate = f.Random.Number(1, 5) switch
+                        p.FirstName = f.Name.FirstName( Name.Gender.Male);
+                        p.LastName = f.Name.LastName(Name.Gender.Male);
+                        p.HiringDate = f.Random.Number(1, 5) switch
                         {
                             1 => null,
                             5 => f.Date.FutureDateOnly(),
                             _ => f.Date.RecentDateOnly(),
                         };
-                        w.PayRate = f.Random.Number(15, 25);
-                        w.Contact = w.GenerateContact(Locale);
+                        p.PayRate = f.Random.Number(15, 25);
+                        p.Contact = p.GenerateContact(Locale);
 
                     });
-            var workers = workerGenerator.Generate(35).ToList();
+            var persons = personGenerator.Generate(35).ToList();
 
 
             var addressGenerator = new Faker<Entity.Address>(Locale)
@@ -51,50 +50,66 @@ namespace Cartelmen.Infrastructure.Seeds
                 .RuleFor(a => a.Street, f => f.Address.StreetName())
                 .RuleFor(a => a.PostalCode, f => f.Address.ZipCode());
 
-            var buildingGenerator = new Faker<Building>(Locale)
+            var spotGenerator = new Faker<Spot>(Locale)
                 .RuleFor(b => b.Name, f => f.Company.CompanyName())
                 .RuleFor(b => b.Description, f => f.Company.CatchPhrase())
                 .RuleFor(b => b.StartDate, f => f.Date.BetweenDateOnly(DateOnly.Parse("2024-01-01"),DateOnly.Parse("2024-12-31")).OrNull(f,.1f))
                 .RuleFor(b => b.Address, () => addressGenerator.Generate())
-                .RuleFor(b => b.Workers, f => f.PickRandom(workers, 8).ToList());
+                .RuleFor(b => b.Persons, f => f.PickRandom(persons, 8).ToList());
 
 
-            //buildings
-            List<Building> buildings;
-            if (_dbContext.Buildings.Any())
+            //spots
+            List<Spot> spots;
+            if (_dbContext.Spot.Any())
             {
-                buildings = await _dbContext.Buildings.ToListAsync();
+                spots = await _dbContext.Spot.ToListAsync();
             }
             else
             {
-                buildings = buildingGenerator.Generate(5).ToList();
+                spots = spotGenerator.Generate(5).ToList();
 
-                await _dbContext.AddRangeAsync(buildings);
+                await _dbContext.AddRangeAsync(spots);
                 await _dbContext.SaveChangesAsync();
             }
+            
+            //spotPerson
+            var spotPersonGenerator = new Faker<SpotPerson>(Locale)
+                .Rules((f, sp) =>
+                {
+                    var spot = f.PickRandom(spots);
+                    var person = f.PickRandom(persons);
+                    
+                    sp.SpotId =  spot.Id;
+                    sp.PersonId = person.Id;
+                    sp.AssignmentDate = DateTime.Parse(spot.StartDate.ToString());
+                    sp.PayRate = person.PayRate;
 
-
+                });
+            var spotPersons = spotPersonGenerator.Generate((int)(spots.Count * persons.Count * 0.6)).ToList();
+            
             //timetracks
             if (_dbContext.TimeTracks.Any()) return;
 
-            var timeTrackGenerator = new Faker<TimeTrack>(Locale)
+            var timeTrackerGenerator = new Faker<TimeTracker>(Locale)
                 .Rules((f, tt) =>
                 {
+                    var spotPerson = f.PickRandom(spotPersons);
+                    tt.WhereWhoId = spotPerson.Id;
                     tt.WorkDate = f.Date.RecentDateOnly(7);
-                    tt.WorkHours = f.Random.Int(0, 24 * 4) * 0.25m;
-                    var building = f.PickRandom(buildings);
-                    tt.BuildingId = building.Id;
-                    tt.WorkerId = f.PickRandom(building.Workers).Id;
+                    tt.WorkTime = f.Random.Int(0, 24 * 4) * 0.25m;
+                    tt.PayRate = spotPerson.PayRate;
+                    tt.UpdatedBy = "Bogus Faker";
+                    tt.UpdatedAtUtc = DateTime.UtcNow;
                 });
 
 
-            var timeTracks = Enumerable.Empty<TimeTrack>().ToList();
+            var timeTracks = Enumerable.Empty<TimeTracker>().ToList();
             do
             {
-                var timeTrack = timeTrackGenerator.Generate();
+                var timeTrack = timeTrackerGenerator.Generate();
 
                 var keyExists = timeTracks
-                    .Any(tt => $"{tt.WorkDate}{tt.BuildingId}{tt.WorkerId}" == $"{timeTrack.WorkDate}{timeTrack.BuildingId}{timeTrack.WorkerId}");
+                    .Any(tt => $"{tt.WorkDate}{tt.WhereWhoId}" == $"{timeTrack.WorkDate}{timeTrack.WhereWhoId}");
 
                 if (!keyExists)
                 {
@@ -105,10 +120,6 @@ namespace Cartelmen.Infrastructure.Seeds
 
             await _dbContext.AddRangeAsync(timeTracks);
             await _dbContext.SaveChangesAsync();
-
-
         }
-
-        
     }
 }
