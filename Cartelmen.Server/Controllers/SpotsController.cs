@@ -9,12 +9,12 @@ namespace Cartelmen.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class SpotController : ControllerBase
+    public class SpotsController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IBuildingService _service;
 
-        public SpotController(IMediator mediator, IBuildingService service)
+        public SpotsController(IMediator mediator, IBuildingService service)
         {
             _mediator = mediator;
             _service = service;
