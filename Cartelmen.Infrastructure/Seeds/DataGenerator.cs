@@ -53,20 +53,22 @@ namespace Cartelmen.Infrastructure.Seeds
             var spotGenerator = new Faker<Spot>(Locale)
                 .RuleFor(b => b.Name, f => f.Company.CompanyName())
                 .RuleFor(b => b.Description, f => f.Company.CatchPhrase())
-                .RuleFor(b => b.StartDate, f => f.Date.BetweenDateOnly(DateOnly.Parse("2024-01-01"),DateOnly.Parse("2024-12-31")).OrNull(f,.1f))
+                .RuleFor(b => b.StartDate, f => f.Date.BetweenDateOnly(DateOnly.Parse("2024-01-01"), DateOnly.Parse("2024-12-31")).OrNull(f, .1f))
                 .RuleFor(b => b.Address, () => addressGenerator.Generate())
-                .RuleFor(b => b.Persons, f => f.PickRandom(persons, 8).ToList());
+                .RuleFor(b => b.Persons, f => f.PickRandom(persons, 5).ToList());
 
 
             //spots
             List<Spot> spots;
             if (_dbContext.Spot.Any())
             {
-                spots = await _dbContext.Spot.ToListAsync();
+                spots = await _dbContext.Spot
+                    .Include(s=>s.Persons)
+                    .ToListAsync();
             }
             else
             {
-                spots = spotGenerator.Generate(5).ToList();
+                spots = spotGenerator.Generate(2).ToList();
 
                 await _dbContext.AddRangeAsync(spots);
                 await _dbContext.SaveChangesAsync();
@@ -77,15 +79,17 @@ namespace Cartelmen.Infrastructure.Seeds
                 .Rules((f, sp) =>
                 {
                     var spot = f.PickRandom(spots);
-                    var person = f.PickRandom(persons);
+                    var person = f.PickRandom(spot.Persons);
                     
                     sp.SpotId =  spot.Id;
                     sp.PersonId = person.Id;
-                    sp.AssignmentDate = DateTime.Parse(spot.StartDate.ToString());
+                    sp.AssignmentDate = DateTime.Parse(spot.StartDate?.ToString() ?? "2025-01-01");
                     sp.PayRate = person.PayRate;
 
                 });
             var spotPersons = spotPersonGenerator.Generate((int)(spots.Count * persons.Count * 0.6)).ToList();
+            await _dbContext.AddRangeAsync(spotPersons);
+            await _dbContext.SaveChangesAsync();
             
             //timetracks
             if (_dbContext.TimeTracks.Any()) return;
@@ -94,9 +98,9 @@ namespace Cartelmen.Infrastructure.Seeds
                 .Rules((f, tt) =>
                 {
                     var spotPerson = f.PickRandom(spotPersons);
-                    tt.WhereWhoId = spotPerson.Id;
+                    tt.SpotPersonId = spotPerson.Id;
                     tt.WorkDate = f.Date.RecentDateOnly(7);
-                    tt.WorkTime = f.Random.Int(0, 24 * 4) * 0.25m;
+                    tt.WorkTime = f.Random.Int(4, 12);
                     tt.PayRate = spotPerson.PayRate;
                     tt.UpdatedBy = "Bogus Faker";
                     tt.UpdatedAtUtc = DateTime.UtcNow;
@@ -107,17 +111,17 @@ namespace Cartelmen.Infrastructure.Seeds
             do
             {
                 var timeTrack = timeTrackerGenerator.Generate();
-
+            
                 var keyExists = timeTracks
-                    .Any(tt => $"{tt.WorkDate}{tt.WhereWhoId}" == $"{timeTrack.WorkDate}{timeTrack.WhereWhoId}");
-
+                    .Any(tt => $"{tt.WorkDate}{tt.SpotPersonId}" == $"{timeTrack.WorkDate}{timeTrack.SpotPersonId}");
+            
                 if (!keyExists)
                 {
                     timeTracks.Add(timeTrack);
                 }
             } while (timeTracks.Count <= 100);
-
-
+            
+            
             await _dbContext.AddRangeAsync(timeTracks);
             await _dbContext.SaveChangesAsync();
         }
