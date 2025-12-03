@@ -34,7 +34,7 @@ namespace Cartelmen.Infrastructure.Seeds
                 var personGenerator = new Faker<Entity.Person>(Locale)
                     .Rules((f, p) =>
                     {
-                        //w.Id = Guid.NewGuid();
+                        // p.Id = Guid.NewGuid();
                         p.FirstName = f.Name.FirstName(Name.Gender.Male);
                         p.LastName = f.Name.LastName(Name.Gender.Male);
                         p.HiringDate = f.Random.Number(1, 5) switch
@@ -75,7 +75,7 @@ namespace Cartelmen.Infrastructure.Seeds
                         f => f.Date.BetweenDateOnly(DateOnly.Parse("2024-01-01"), DateOnly.Parse("2024-12-31"))
                             .OrNull(f, .1f))
                     .RuleFor(b => b.Address, () => addressGenerator.Generate());
-                    // .RuleFor(b => b.Persons, f => f.PickRandom(persons, 5).ToList()); To also genereate SpotPerson table
+                    // .RuleFor(b => b.Persons, f => f.PickRandom(persons, 5).ToList()); To also generate SpotPerson table
                 
                 spots = spotGenerator.Generate(2).ToList();
 

@@ -8,6 +8,9 @@ public class PersonConfiguration: IEntityTypeConfiguration<Person>
 {
     public void Configure(EntityTypeBuilder<Person> builder)
     {
+        builder.Property(x => x.Id)
+            .HasDefaultValueSql("NEWSEQUENTIALID()");
+        
         builder.HasOne(cd => cd.Contact)
             .WithOne(w => w.Worker)
             .HasForeignKey<ContactDetails>(w => w.WorkerId);
