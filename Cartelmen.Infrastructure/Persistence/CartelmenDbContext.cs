@@ -9,6 +9,8 @@ namespace Cartelmen.Infrastructure.Persistence
         public DbSet<Person> Person { get; set; }
         public DbSet<ContactDetails> ContactDetails { get; set; }
         public DbSet<Spot> Spot { get; set; }
+        
+        public DbSet<SpotPerson> SpotPerson { get; set; }
 
         public DbSet<TimeTracker> TimeTracks { get; set; }
 
@@ -21,7 +23,7 @@ namespace Cartelmen.Infrastructure.Persistence
         {
             modelBuilder.ApplyConfiguration(new SpotConfiguration());
             modelBuilder.ApplyConfiguration(new PersonConfiguration());
-            modelBuilder.ApplyConfiguration(new TimeTrackConfiguration());
+            modelBuilder.ApplyConfiguration(new TimeTrackerConfiguration());
         }
     }
 }
