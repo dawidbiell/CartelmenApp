@@ -27,7 +27,7 @@ namespace Cartelmen.Domain.Entities
         
         
         public SpotPerson SpotPerson { get; set; }
-        public int WhereWhoId { get; set; }
+        public int SpotPersonId { get; set; }
 
         // soft delete
         public bool IsDeleted { get; set; }
