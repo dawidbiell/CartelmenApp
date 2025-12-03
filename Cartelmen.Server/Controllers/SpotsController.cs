@@ -40,10 +40,21 @@ namespace Cartelmen.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var entities = await _mediator.Send(new SpotGetAllQuery());
             return Ok(entities);
+        }
+        
+        [HttpPost("{Id}/persons")]
+        public async Task<IActionResult> AssignMany(int Id, [FromBody] Guid[] personIds, CancellationToken cancellationToken)
+        {
+            var results = await _mediator.Send(new SpotAssignPersonsCommand(Id,  personIds), cancellationToken);
+            if (results > 0)
+            {
+                return Ok();
+            }
+            return NoContent();
         }
 
         //[HttpPut("{id}")]
