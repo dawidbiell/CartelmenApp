@@ -13,7 +13,26 @@ public class SpotPersonsRepository :ISpotPersonsRepository
     {
         _dbContext = dbContext;
     }
-    
+
+
+    public async Task<List<SpotPerson>> AssignmentsGetAllAsync(CancellationToken ct)
+    {
+        return await _dbContext.SpotPerson
+            .Include(s => s.Spot)
+            .Include(s => s.Person)
+            .AsNoTracking()
+            .ToListAsync(ct);
+    }
+
+    public async Task<Spot?> AssignmentGetBySpotIdAsync(int spotIds, CancellationToken ct)
+    {
+        return await _dbContext.Spot
+            .Include(s => s.Persons)
+            .AsNoTracking()
+            .Where(s => s.Id == spotIds)
+            .FirstOrDefaultAsync(ct);
+    }
+
     public async Task<SpotPerson?> FindAssigment(int spotId, Guid personId, CancellationToken ct = default)
     {
         return await _dbContext.SpotPerson
