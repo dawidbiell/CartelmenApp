@@ -1,6 +1,7 @@
 ﻿using Cartelmen.Application.CQRS.Building.Queries;
 using Cartelmen.Application.CQRS.Spot.Commands;
 using Cartelmen.Application.CQRS.Spot.Queries;
+using Cartelmen.Application.DTOs;
 using Cartelmen.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -47,9 +48,9 @@ namespace Cartelmen.Server.Controllers
         }
         
         [HttpPost("{Id}/persons")]
-        public async Task<IActionResult> AssignMany(int Id, [FromBody] Guid[] personIds, CancellationToken cancellationToken)
+        public async Task<IActionResult> AssignMany(int Id, [FromBody] SpotAssigmentDto[] assignments, CancellationToken cancellationToken)
         {
-            var results = await _mediator.Send(new SpotAssignPersonsCommand(Id,  personIds), cancellationToken);
+            var results = await _mediator.Send(new SpotAssignPersonsCommand(Id,  assignments), cancellationToken);
             if (results > 0)
             {
                 return Ok();

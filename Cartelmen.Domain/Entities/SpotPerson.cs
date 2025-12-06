@@ -19,7 +19,7 @@ namespace Cartelmen.Domain.Entities
         public Guid PersonId { get; set; }
         public Person Person { get; set; }
 
-        public DateTime AssignmentDate { get; set; }
+        public DateTime? AssignmentDate { get; set; }
         
         [Column(TypeName = "money")]
         public decimal PayRate { get; set; }

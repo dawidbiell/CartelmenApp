@@ -15,20 +15,21 @@ public class PersonConfiguration: IEntityTypeConfiguration<Person>
             .WithOne(w => w.Worker)
             .HasForeignKey<ContactDetails>(w => w.WorkerId);
 
-        builder.HasMany(w => w.Spots)
-            .WithMany(b => b.Persons)
+        builder.HasMany(p => p.Spots)
+            .WithMany(s => s.Persons)
             .UsingEntity<SpotPerson>(
                 w => w.HasOne(sp => sp.Spot)
                     .WithMany()
-                    .HasForeignKey(bw => bw.SpotId),
-                w => w.HasOne(bw => bw.Person)
+                    .HasForeignKey(sp => sp.SpotId),
+                w => w.HasOne(sp => sp.Person)
                     .WithMany()
-                    .HasForeignKey(bw => bw.PersonId),
-                bw =>
+                    .HasForeignKey(sp => sp.PersonId),
+                sp =>
                 {
-                    bw.Property(e => e.Id).ValueGeneratedOnAdd();            // auto-increment
-                    bw.Property(e => e.PayRate).HasColumnType("decimal(18,2)");
-                    bw.Property(e => e.AssignmentDate).HasDefaultValueSql("getutcdate()");
+                    
+                    sp.Property(e => e.Id).ValueGeneratedOnAdd();            // auto-increment
+                    sp.Property(e => e.PayRate).HasColumnType("decimal(18,2)");
+                    sp.Property(e => e.AssignmentDate).HasDefaultValueSql("getutcdate()");
                 }
 
             );
