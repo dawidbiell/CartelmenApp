@@ -1,17 +1,18 @@
+using Cartelmen.Application.CQRS.Spot.Commands;
 using Cartelmen.Domain.Entities;
 using Cartelmen.Domain.Interfaces;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Spot.Commands;
+namespace Cartelmen.Application.CQRS.Assignments.Commands;
 
-public class SpotAssignPersonsCommandHandler(
+public class AssignPersonsCommandHandler(
     ISpotPersonsRepository spotRepository,
     IPersonRepository personRepository) 
-    : IRequestHandler<SpotAssignPersonsCommand, int>
+    : IRequestHandler<AssignPersonsCommand, int>
 {
 
 
-    public async Task<int> Handle(SpotAssignPersonsCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(AssignPersonsCommand request, CancellationToken cancellationToken)
     {
         var assignments = new List<SpotPerson?>();
         foreach (var spotAssignment in request.SpotAssigmentDtos)
