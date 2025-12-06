@@ -18,7 +18,7 @@ public class PersonGetAllQueryHandler : IRequestHandler<PersonGetAllQuery, IEnum
 
     public async Task<IEnumerable<PersonDto>> Handle(PersonGetAllQuery request, CancellationToken cancellationToken)
     {
-        var list = await _repository.GetAllAsync();
+        var list = await _repository.GetAllAsync(cancellationToken);
         var dtos = _mapper.Map<IEnumerable<PersonDto>>(list);
         return dtos;
     }

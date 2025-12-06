@@ -18,7 +18,7 @@ public class PersonGetByIdQueryHandler : IRequestHandler<PersonGetByIdQuery, Per
 
     public async Task<PersonDto> Handle(PersonGetByIdQuery request, CancellationToken cancellationToken)
     {
-        var entity = await _repository.GetByIdAsync(request.Id);
+        var entity = await _repository.GetByIdAsync(request.Id, cancellationToken);
         var dto = _mapper.Map<PersonDto>(entity);
         return  dto;
     }

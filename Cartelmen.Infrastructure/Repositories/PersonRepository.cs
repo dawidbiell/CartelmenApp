@@ -13,38 +13,39 @@ public class PersonRepository: IPersonRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Person>> GetAllAsync()
+    public async Task<IEnumerable<Person>> GetAllAsync(CancellationToken ct)
         =>  await _dbContext.Person
             .Include(w => w.Contact)
             .IgnoreQueryFilters()
-            .ToListAsync();
+            .ToListAsync(ct);
     
-    public async Task<Person?> GetByIdAsync(Guid id) 
+    public async Task<Person?> GetByIdAsync(Guid id, CancellationToken ct) 
         => await _dbContext.Person
             .Include(w => w.Contact)
-            .FirstOrDefaultAsync(w => w.Id == id);
+            .FirstOrDefaultAsync(w => w.Id == id, ct);
 
-    public async Task<Person> AddAsync(Person person)
+    public async Task<Person> AddAsync(Person person, CancellationToken ct)
     {
         _dbContext.Person.Add(person);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(ct);
         return person;
     }
 
-    public async Task<Person?> UpdateAsync(Person person)
+    public async Task<Person?> UpdateAsync(Person person, CancellationToken ct)
     {
         _dbContext.Person.Update(person);
-        var result = await _dbContext.SaveChangesAsync();
+        var result = await _dbContext.SaveChangesAsync(ct);
         return result > 0 ? person : default;
     }
 
-    public async Task<bool> DeleteByIdAsync(Guid id)
+    public async Task<bool> DeleteByIdAsync(Guid id, CancellationToken ct)
     {
         var result = await _dbContext.Person
             .Where(w => w.Id == id && !w.IsDeleted)
             .ExecuteUpdateAsync(w => w
                 .SetProperty(p => p.IsDeleted, true)
                 .SetProperty(p => p.DeletedAtUtc, DateTime.UtcNow)
+                ,ct
             );
 
         return result > 0;
