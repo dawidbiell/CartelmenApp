@@ -115,7 +115,7 @@ namespace Cartelmen.Infrastructure.Seeds
 
             
             //timetracks
-            if (_dbContext.TimeTracks.Any()) return;
+            if (_dbContext.TimeTracker.Any()) return;
 
             var timeTrackerGenerator = new Faker<TimeTracker>(Locale)
                 .Rules((f, tt) =>

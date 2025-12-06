@@ -51,7 +51,8 @@ namespace Cartelmen.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWSEQUENTIALID()");
 
                     b.Property<DateTime?>("DeletedAtUtc")
                         .HasColumnType("datetime2");
@@ -124,7 +125,7 @@ namespace Cartelmen.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("AssignmentDate")
+                    b.Property<DateTime?>("AssignmentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
@@ -184,7 +185,7 @@ namespace Cartelmen.Infrastructure.Migrations
 
                     b.HasIndex("SpotPersonId");
 
-                    b.ToTable("TimeTracks");
+                    b.ToTable("TimeTracker");
                 });
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.ContactDetails", b =>

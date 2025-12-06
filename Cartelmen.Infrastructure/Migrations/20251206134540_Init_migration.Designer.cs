@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cartelmen.Infrastructure.Migrations
 {
     [DbContext(typeof(CartelmenDbContext))]
-    [Migration("20251124223014_Init_migration")]
+    [Migration("20251206134540_Init_migration")]
     partial class Init_migration
     {
         /// <inheritdoc />
@@ -54,7 +54,8 @@ namespace Cartelmen.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWSEQUENTIALID()");
 
                     b.Property<DateTime?>("DeletedAtUtc")
                         .HasColumnType("datetime2");
@@ -127,7 +128,7 @@ namespace Cartelmen.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("AssignmentDate")
+                    b.Property<DateTime?>("AssignmentDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getutcdate()");
@@ -156,8 +157,7 @@ namespace Cartelmen.Infrastructure.Migrations
                         .HasColumnType("date");
 
                     b.Property<int>("SpotPersonId")
-                        .HasColumnType("int")
-                        .HasColumnName("WhereWhoId");
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("DeletedAtUtc")
                         .HasColumnType("datetime2");
@@ -188,7 +188,7 @@ namespace Cartelmen.Infrastructure.Migrations
 
                     b.HasIndex("SpotPersonId");
 
-                    b.ToTable("TimeTracks");
+                    b.ToTable("TimeTracker");
                 });
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.ContactDetails", b =>

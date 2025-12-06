@@ -77,7 +77,7 @@ namespace Cartelmen.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SpotId = table.Column<int>(type: "int", nullable: false),
                     PersonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AssignmentDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "getutcdate()"),
+                    AssignmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getutcdate()"),
                     PayRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -98,11 +98,11 @@ namespace Cartelmen.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimeTracks",
+                name: "TimeTracker",
                 columns: table => new
                 {
                     WorkDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    WhereWhoId = table.Column<int>(type: "int", nullable: false),
+                    SpotPersonId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     WorkTime = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
                     PayRate = table.Column<decimal>(type: "money", nullable: false),
@@ -114,10 +114,10 @@ namespace Cartelmen.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimeTracks", x => new { x.WorkDate, x.WhereWhoId });
+                    table.PrimaryKey("PK_TimeTracker", x => new { x.WorkDate, x.SpotPersonId });
                     table.ForeignKey(
-                        name: "FK_TimeTracks_SpotPerson_WhereWhoId",
-                        column: x => x.WhereWhoId,
+                        name: "FK_TimeTracker_SpotPerson_SpotPersonId",
+                        column: x => x.SpotPersonId,
                         principalTable: "SpotPerson",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -152,9 +152,9 @@ namespace Cartelmen.Infrastructure.Migrations
                 column: "SpotId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimeTracks_WhereWhoId",
-                table: "TimeTracks",
-                column: "WhereWhoId");
+                name: "IX_TimeTracker_SpotPersonId",
+                table: "TimeTracker",
+                column: "SpotPersonId");
         }
 
         /// <inheritdoc />
@@ -164,7 +164,7 @@ namespace Cartelmen.Infrastructure.Migrations
                 name: "ContactDetails");
 
             migrationBuilder.DropTable(
-                name: "TimeTracks");
+                name: "TimeTracker");
 
             migrationBuilder.DropTable(
                 name: "SpotPerson");

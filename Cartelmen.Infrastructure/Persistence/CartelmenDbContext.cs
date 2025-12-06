@@ -12,7 +12,7 @@ namespace Cartelmen.Infrastructure.Persistence
         
         public DbSet<SpotPerson> SpotPerson { get; set; }
 
-        public DbSet<TimeTracker> TimeTracks { get; set; }
+        public DbSet<TimeTracker> TimeTracker { get; set; }
 
         public CartelmenDbContext(DbContextOptions<CartelmenDbContext> options) : base(options)
         {
