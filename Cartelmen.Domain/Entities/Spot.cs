@@ -21,7 +21,7 @@ namespace Cartelmen.Domain.Entities
 
 
         public Address Address { get; set; } = default!;
-        public IList<Person> Persons { get; set; } = new List<Person>();
+        public ICollection<Person> Persons { get; set; } = [];
 
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAtUtc { get; set; }

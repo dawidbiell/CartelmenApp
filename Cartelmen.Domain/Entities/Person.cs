@@ -23,7 +23,7 @@ namespace Cartelmen.Domain.Entities
 
         
         public ContactDetails Contact { get; set; }
-        public IList<Spot> Spots { get; set; } = new List<Spot>();
+        public ICollection<Spot> Spots { get; set; } = [];
 
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAtUtc { get; set; }

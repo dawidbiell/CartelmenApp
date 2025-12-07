@@ -33,7 +33,8 @@ namespace Cartelmen.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
-            var entity = await _service.GetById(id, ct);
+            var entity = await _mediator.Send(new SpotGetByIdQuery(id), ct);
+            //TODO do weryfikacji
             if (entity == null)
             {
                 return NotFound();
