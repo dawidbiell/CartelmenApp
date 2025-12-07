@@ -1,7 +1,7 @@
 namespace Cartelmen.Application.DTOs;
 
 
-public class AssignmentDto
+public class PersonAssignmentDto
 {
     public Guid PersonId { get; set; }
 

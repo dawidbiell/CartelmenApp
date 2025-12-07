@@ -49,7 +49,7 @@ namespace Cartelmen.Server.Controllers
         }
         
         [HttpPost("{Id}/persons")]
-        public async Task<IActionResult> AssignMany(int Id, [FromBody] AssignmentDto[] assignments, CancellationToken cancellationToken)
+        public async Task<IActionResult> AssignMany(int Id, [FromBody] PersonAssignmentDto[] assignments, CancellationToken cancellationToken)
         {
             var results = await _mediator.Send(new AssignPersonsCommand(Id,  assignments), cancellationToken);
             if (results > 0)
