@@ -17,9 +17,9 @@ public class SpotGetByIdQueryHandler :  IRequestHandler<SpotGetByIdQuery,SpotDto
         _mapper = mapper;
     }
 
-    public async Task<SpotDto> Handle(SpotGetByIdQuery request, CancellationToken cancellationToken)
+    public async Task<SpotDto> Handle(SpotGetByIdQuery request, CancellationToken ct)
     {
-        var spot = await _spotRepository.GetByIdAsync(request.Id);
+        var spot = await _spotRepository.GetByIdAsync(request.Id, ct);
         var dto = _mapper.Map<SpotDto>(spot);
         return dto;
     }

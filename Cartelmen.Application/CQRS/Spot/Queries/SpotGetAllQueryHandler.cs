@@ -15,9 +15,9 @@ public class SpotGetAllQueryHandler:  IRequestHandler<SpotGetAllQuery, IEnumerab
         _repository = spotRepository;
         _mapper = mapper;
     }
-    public async Task<IEnumerable<SpotDto>> Handle(SpotGetAllQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<SpotDto>> Handle(SpotGetAllQuery request, CancellationToken ct)
     {
-        var spots = await _repository.GetAllAsync();
+        var spots = await _repository.GetAllAsync(ct);
         var dtos = _mapper.Map<IEnumerable<SpotDto>>(spots);
         return dtos;
     }

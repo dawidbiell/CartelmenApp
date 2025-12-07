@@ -13,7 +13,7 @@ public static class ServiceCollectionExtension
         services.AddMediatR(cfg => 
             cfg.RegisterServicesFromAssembly(typeof(PersonCreateCommand).Assembly));
         
-        services.AddScoped<IBuildingService, BuildingService>();
+        services.AddScoped<ISpotService, SpotService>();
         
         services.AddAutoMapper(typeof(PersonProfile));
         services.AddAutoMapper(typeof(SpotProfile));

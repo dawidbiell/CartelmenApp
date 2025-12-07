@@ -14,9 +14,9 @@ namespace Cartelmen.Server.Controllers
     public class SpotsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IBuildingService _service;
+        private readonly ISpotService _service;
 
-        public SpotsController(IMediator mediator, IBuildingService service)
+        public SpotsController(IMediator mediator, ISpotService service)
         {
             _mediator = mediator;
             _service = service;
@@ -31,9 +31,9 @@ namespace Cartelmen.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
-            var entity = await _service.GetById(id);
+            var entity = await _service.GetById(id, ct);
             if (entity == null)
             {
                 return NotFound();

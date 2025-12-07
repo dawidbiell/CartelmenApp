@@ -10,11 +10,11 @@ public class SpotCreateCommandHandler(
     : IRequestHandler<SpotCreateCommand, int>
 {
 
-    public async Task<int> Handle(SpotCreateCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(SpotCreateCommand request, CancellationToken ct)
     {
         // Validation DTO by DataAnnotations
         var spot = mapper.Map<Domain.Entities.Spot>(request);
-        await repository.AddAsync(spot);
+        await repository.AddAsync(spot, ct);
         return spot.Id;
     }
 }
