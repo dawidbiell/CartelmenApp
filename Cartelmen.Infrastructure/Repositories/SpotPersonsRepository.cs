@@ -5,28 +5,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Infrastructure.Repositories;
 
-public class SpotPersonsRepository :ISpotPersonsRepository
+public class SpotPersonsRepository(CartelmenDbContext dbContext) : ISpotPersonsRepository
 {
-    private readonly CartelmenDbContext _dbContext;
-
-    public SpotPersonsRepository(CartelmenDbContext  dbContext )
-    {
-        _dbContext = dbContext;
-    }
-
-
     public async Task<List<SpotPerson>> AssignmentsGetAllAsync(CancellationToken ct)
     {
-        return await _dbContext.SpotPerson
-            .Include(s => s.Spot)
-            .Include(s => s.Person)
+        // tODO stworzyc DTO z danymi spot i lista persons
+         var results = await dbContext.SpotPerson
             .AsNoTracking()
+            .Include(s=>s.Spot)
+            .Include(s=>s.Person)
             .ToListAsync(ct);
+
+         return results;
     }
 
     public async Task<Spot?> AssignmentGetBySpotIdAsync(int spotIds, CancellationToken ct)
     {
-        return await _dbContext.Spot
+        return await dbContext.Spot
             .Include(s => s.Persons)
             .AsNoTracking()
             .Where(s => s.Id == spotIds)
@@ -35,14 +30,14 @@ public class SpotPersonsRepository :ISpotPersonsRepository
 
     public async Task<SpotPerson?> FindAssigment(int spotId, Guid personId, CancellationToken ct = default)
     {
-        return await _dbContext.SpotPerson
+        return await dbContext.SpotPerson
             .Where(sp => sp.SpotId == spotId && sp.PersonId == personId)
             .FirstOrDefaultAsync(ct);
     }
 
     public async Task<int> AssignManyAsync(List<SpotPerson?> assignments, CancellationToken ct)
     {
-        _dbContext.SpotPerson.AddRange(assignments);
-        return await _dbContext.SaveChangesAsync(ct);
+        dbContext.SpotPerson.AddRange(assignments);
+        return await dbContext.SaveChangesAsync(ct);
     }
 }
