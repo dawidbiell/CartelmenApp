@@ -5,7 +5,7 @@ using Cartelmen.Application.DTOs;
 
 namespace Cartelmen.Application.Services
 {
-    public interface ISpotService
+    public interface ITestService
     {
         Task<Spot> Create(SpotDto building, CancellationToken cancellationToken);
         Task<Spot?> GetById(int id, CancellationToken cancellationToken);
