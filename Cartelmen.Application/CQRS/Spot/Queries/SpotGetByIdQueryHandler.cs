@@ -1,12 +1,11 @@
 using AutoMapper;
-using Cartelmen.Application.CQRS.Spot.Queries;
 using Cartelmen.Application.DTOs;
 using Cartelmen.Domain.Interfaces;
 using MediatR;
 
-namespace Cartelmen.Application.CQRS.Building.Queries;
+namespace Cartelmen.Application.CQRS.Spot.Queries;
 
-public class SpotGetByIdQueryHandler :  IRequestHandler<SpotGetByIdQuery,SpotDto>
+public class SpotGetByIdQueryHandler :  IRequestHandler<SpotGetByIdQuery,SpotDto?>
 {
     private readonly ISpotRepository _spotRepository;
     private readonly IMapper _mapper;
@@ -17,7 +16,7 @@ public class SpotGetByIdQueryHandler :  IRequestHandler<SpotGetByIdQuery,SpotDto
         _mapper = mapper;
     }
 
-    public async Task<SpotDto> Handle(SpotGetByIdQuery request, CancellationToken ct)
+    public async Task<SpotDto?> Handle(SpotGetByIdQuery request, CancellationToken ct)
     {
         var spot = await _spotRepository.GetByIdAsync(request.Id, ct);
         var dto = _mapper.Map<SpotDto>(spot);

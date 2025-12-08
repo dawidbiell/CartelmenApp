@@ -9,7 +9,6 @@ public class SpotPersonsRepository(CartelmenDbContext dbContext) : ISpotPersonsR
 {
     public async Task<List<SpotPerson>> AssignmentsGetAllAsync(CancellationToken ct)
     {
-        // tODO stworzyc DTO z danymi spot i lista persons
          var results = await dbContext.SpotPerson
             .AsNoTracking()
             .Include(s=>s.Spot)

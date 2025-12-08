@@ -1,5 +1,4 @@
 ﻿using Cartelmen.Application.CQRS.Assignments.Commands;
-using Cartelmen.Application.CQRS.Building.Queries;
 using Cartelmen.Application.CQRS.Spot.Commands;
 using Cartelmen.Application.CQRS.Spot.Queries;
 using Cartelmen.Application.DTOs;
@@ -34,8 +33,7 @@ namespace Cartelmen.Server.Controllers
         public async Task<IActionResult> GetById(int id, CancellationToken ct)
         {
             var entity = await _mediator.Send(new SpotGetByIdQuery(id), ct);
-            // TODO do weryfikacji
-            if (entity == null)
+            if (entity is null)
             {
                 return NotFound();
             }
