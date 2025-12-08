@@ -8,15 +8,37 @@ namespace Cartelmen.Application.Services
     public class TestService : ITestService
     {
         private readonly ISpotRepository _spotRepository;
+        private readonly ISpotPersonsRepository _spotPersonsRepository;
         private readonly IMapper _mapper;
 
-        public TestService(ISpotRepository spotRepository, IMapper mapper)
+        public TestService(
+            ISpotRepository spotRepository,
+            ISpotPersonsRepository spotPersonsRepository,
+            IMapper mapper)
         {
             _spotRepository = spotRepository;
+            _spotPersonsRepository = spotPersonsRepository;
             _mapper = mapper;
         }
         
-        
+        public async Task<SpotPersonsDto?> PersonsGetAll(int id, CancellationToken ct)
+        {
+            var spot = await _spotPersonsRepository.AssignmentGetBySpotIdAsync(id, ct);
+            if (spot is null)  return null;
+            
+            var dto =  new SpotPersonsDto()
+            {
+                Spot = _mapper.Map<SpotDto>(spot)
+            };
+            
+            var personDtos = spot.Persons
+                .Select(person => _mapper.Map<PersonDto>(person))
+                .ToList();
+
+            dto.Persons = personDtos;
+            
+            return dto;
+        }
         
         
 
@@ -32,17 +54,7 @@ namespace Cartelmen.Application.Services
             var dtos = _mapper.Map<IEnumerable<SpotDto>>(list);
             return dtos;
         }
-        public async Task<SpotPersonsDto?> PersonsGetAll(int id, CancellationToken ct)
-        {
-            var dto =  new SpotPersonsDto();
-            
-            var spot = await _spotRepository.GetByIdAsync(id, ct);
-            if (spot is null)  return null;
-            
-            
-            
-            return dto;
-        }
+        
 
         public async Task<Spot?> GetById(int id, CancellationToken ct)
         {

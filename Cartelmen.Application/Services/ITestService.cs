@@ -7,6 +7,7 @@ namespace Cartelmen.Application.Services
 {
     public interface ITestService
     {
+        Task<SpotPersonsDto?> PersonsGetAll(int id, CancellationToken ct);
         Task<Spot> Create(SpotDto building, CancellationToken cancellationToken);
         Task<Spot?> GetById(int id, CancellationToken cancellationToken);
         Task<IEnumerable<SpotDto>> GetAll(CancellationToken cancellationToken);
