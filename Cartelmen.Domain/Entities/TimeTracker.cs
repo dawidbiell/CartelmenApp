@@ -7,8 +7,6 @@ namespace Cartelmen.Domain.Entities
 {
     public class TimeTracker : ISoftDeletable
     {
-        public int Id { get; set; }
-        
         [Required] [Column(TypeName = "date")]
         
         public DateOnly WorkDate { get; set; }

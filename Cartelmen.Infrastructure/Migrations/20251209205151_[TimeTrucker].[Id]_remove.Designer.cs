@@ -4,6 +4,7 @@ using Cartelmen.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cartelmen.Infrastructure.Migrations
 {
     [DbContext(typeof(CartelmenDbContext))]
-    partial class CartelmenDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251209205151_[TimeTrucker].[Id]_remove")]
+    partial class TimeTruckerId_remove
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
