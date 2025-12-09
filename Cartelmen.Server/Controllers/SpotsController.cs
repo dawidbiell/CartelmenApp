@@ -13,12 +13,10 @@ namespace Cartelmen.Server.Controllers
     public class SpotsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly ITestService _service;
 
-        public SpotsController(IMediator mediator, ITestService service)
+        public SpotsController(IMediator mediator)
         {
             _mediator = mediator;
-            _service = service;
         }
 
         [HttpPost]
