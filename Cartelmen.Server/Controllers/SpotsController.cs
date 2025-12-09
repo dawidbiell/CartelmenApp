@@ -61,13 +61,10 @@ namespace Cartelmen.Server.Controllers
         [HttpGet("{id}/persons")]
         public async Task<IActionResult> SpotPersonsGetAll(int id, CancellationToken ct)
         {
-            
-            var results = await _service.PersonsGetAll(id, ct);
-            if (results is null)
-            {
-                return NoContent();;
-            }
-            return Ok(results);
+            var results = await  _mediator.Send(new SpotPersonsGetAllQuery(id), ct);
+            return results is not null 
+                ? Ok(results) 
+                : NoContent();
         }
 
         //[HttpPut("{id}")]
