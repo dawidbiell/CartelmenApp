@@ -2,7 +2,7 @@ using Cartelmen.Domain.Entities;
 
 namespace Cartelmen.Domain.Interfaces;
 
-public interface ISpotPersonsRepository
+public interface ISpotPersonsRepository: ICrudRepository<SpotPerson>
 {
     Task<List<SpotPerson>> AssignmentsGetAllAsync(CancellationToken cancellationToken);
     Task<Spot?> AssignmentGetBySpotIdAsync(int spotIds, CancellationToken cancellationToken);
