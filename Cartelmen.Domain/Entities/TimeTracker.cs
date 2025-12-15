@@ -20,8 +20,8 @@ namespace Cartelmen.Domain.Entities
         public bool IsSubmitted { get; set; }
         
         public string? UpdatedBy { get; set; }
-        
-        public DateTime? UpdatedAtUtc { get; set; }
+
+        public DateTime? UpdatedAtUtc { get; set; } = DateTime.UtcNow;
         
         
         public SpotPerson SpotPerson { get; set; }
