@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Cartelmen.Application.CQRS.TimeTracker.Commands;
 
-public class TimeTrackCreateCommand : TimeTrackCreateDto , IRequest<int>
+public class TimeTrackCreateCommand : TimeTrackCreateDto , IRequest<Domain.Entities.TimeTracker?>
 {
     
 }

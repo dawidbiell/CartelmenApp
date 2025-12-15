@@ -1,6 +1,7 @@
 using Cartelmen.Domain.Entities;
 using Cartelmen.Domain.Interfaces;
 using Cartelmen.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Infrastructure.Repositories;
 
@@ -13,6 +14,16 @@ public class TimeTrackerRepository(CartelmenDbContext dbContext) : ITimeTrackerR
         dbContext.TimeTracker.Add(entity);
         await dbContext.SaveChangesAsync(cancellationToken);
         return entity;
+    }
+    
+    public async Task<TimeTracker?> GetByKeyAsync(int spotPersonId, DateOnly date, CancellationToken cancellationToken)
+    {
+        var output = await dbContext.TimeTracker
+            .Where(tt => tt.SpotPersonId == spotPersonId) 
+            .Where (tt => tt.WorkDate == date)
+            .FirstOrDefaultAsync(cancellationToken);
+        
+        return output;
     }
 
     public Task<IEnumerable<TimeTracker>> GetAllAsync(CancellationToken cancellationToken = default)
@@ -34,4 +45,6 @@ public class TimeTrackerRepository(CartelmenDbContext dbContext) : ITimeTrackerR
     {
         throw new NotImplementedException();
     }
+
+
 }

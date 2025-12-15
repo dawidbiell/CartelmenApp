@@ -16,8 +16,6 @@ public class TimeTrackerController(IMediator mediator) : Controller
     {
         var result = await mediator.Send(timeTrackCreateCommand);
 
-        if (result > 1) return Ok(result);
-        return BadRequest();
-
+        return Ok(result);
     }
 }

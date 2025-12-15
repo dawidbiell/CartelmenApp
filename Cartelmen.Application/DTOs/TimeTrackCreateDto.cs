@@ -4,7 +4,7 @@ public class TimeTrackCreateDto
 {
     
     public int SpotPersonId { get; set; }
-    public DateTime Date { get; set; } = DateTime.UtcNow;
+    public DateOnly Date { get; set; }
     public decimal WorkTime { get; set; }
     public decimal? PayRate { get; set; }
 }
