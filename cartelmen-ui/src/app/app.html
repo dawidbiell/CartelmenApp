@@ -1,10 +1,12 @@
+<h1>  HEllo</h1>
+
 <div class="card bg-base-100 w-1/2 mx-auto p-10  shadow-xl mt-10">
     <h3 class="text-3xl text-green-500 ">{{title()}}</h3>
     <ul class="list">
-      @for (building of buildings(); track building.id) {
+      @for (spot of spots(); track spot.id) {
         <li class="list-row items-center">
             <img src="/building.jpg" alt="buildingIco" class="size-12 rounded-box"/>
-            {{building.name}}: {{building.description}}
+            {{spot.name}}: {{spot.description}}
         </li>
       }
     </ul>

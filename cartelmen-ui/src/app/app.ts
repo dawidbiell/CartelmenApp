@@ -12,17 +12,17 @@ import { lastValueFrom } from 'rxjs';
 export class App implements OnInit {
   private httpClient = inject(HttpClient);
   protected readonly title = signal('Cartelmen App');
-  protected buildings = signal<any>([]);
+  protected spots = signal<any>([]);
 
-  async ngOnInit() {
-    this.buildings.set(await this.getBuildings());
+  async ngOnInit(): Promise<void> {
+    this.spots.set(await this.getSpots());
   }
 
-  async getBuildings() {
+  async getSpots() {
     try {
-      return lastValueFrom(this.httpClient.get('http://localhost:5000/api/buildings'))
+      return lastValueFrom(this.httpClient.get('http://localhost:5000/api/spots'))
     } catch (error) {
-      console.error('Error fetching buildings:', error);
+      console.error('Error fetching spots:', error);
       throw error;
     }
   }
