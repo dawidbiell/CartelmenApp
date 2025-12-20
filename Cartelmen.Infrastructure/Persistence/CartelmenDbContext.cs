@@ -14,6 +14,8 @@ namespace Cartelmen.Infrastructure.Persistence
 
         public DbSet<TimeTracker> TimeTracker { get; set; }
 
+        public DbSet<AppUser> AppUsers { get; set; }
+
         public CartelmenDbContext(DbContextOptions<CartelmenDbContext> options) : base(options)
         {
 
