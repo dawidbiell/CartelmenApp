@@ -14,6 +14,7 @@ public static class ServiceCollectionExtension
             cfg.RegisterServicesFromAssembly(typeof(PersonCreateCommand).Assembly));
         
         services.AddScoped<ITestService, TestService>();
+        services.AddScoped<ITokenService, TokenService>();
         
         services.AddAutoMapper(typeof(PersonProfile));
         services.AddAutoMapper(typeof(SpotProfile));
