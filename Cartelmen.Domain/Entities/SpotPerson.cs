@@ -16,7 +16,7 @@ namespace Cartelmen.Domain.Entities
         public int SpotId { get; set; }
         public Spot Spot { get; set; }
 
-        public Guid PersonId { get; set; }
+        public int PersonId { get; set; }
         public Person Person { get; set; }
 
         public DateTime? AssignmentDate { get; set; }

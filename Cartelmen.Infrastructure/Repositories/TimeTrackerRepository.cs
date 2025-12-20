@@ -41,7 +41,7 @@ public class TimeTrackerRepository(CartelmenDbContext dbContext) : ITimeTrackerR
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

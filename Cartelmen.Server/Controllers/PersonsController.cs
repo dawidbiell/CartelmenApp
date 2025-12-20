@@ -27,7 +27,7 @@ public class PersonsController(
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> GetById(int id)
     {
         var entity = await mediator.Send(new PersonGetByIdQuery(id));
         return Ok(entity);

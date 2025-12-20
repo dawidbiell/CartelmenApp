@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Cartelmen.Application.CQRS.Person.Commands;
 
-public class PersonCreateCommandHandler : IRequestHandler<PersonCreateCommand, Guid>
+public class PersonCreateCommandHandler : IRequestHandler<PersonCreateCommand, int>
 {
     private readonly IMapper _mapper;
     private readonly IPersonRepository _repository;
@@ -15,7 +15,7 @@ public class PersonCreateCommandHandler : IRequestHandler<PersonCreateCommand, G
         _repository = repository;
     }
 
-    public async Task<Guid> Handle(PersonCreateCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(PersonCreateCommand request, CancellationToken cancellationToken)
     {
         var entity = _mapper.Map<Domain.Entities.Person>(request);
         await _repository.AddAsync(entity, cancellationToken);

@@ -7,7 +7,7 @@ namespace Cartelmen.Domain.Entities
     public class Spot :ISoftDeletable
     {
         [Key]
-        public int Id { get; set; }
+        public required  int Id { get; set; }
         
         [Required]
         public required string Name { get; set; }

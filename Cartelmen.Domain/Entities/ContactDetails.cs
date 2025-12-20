@@ -13,6 +13,6 @@ public class ContactDetails
     public string? Email { get; set; }
 
     public Person Worker { get; set; }
-    public Guid WorkerId { get; set; }
+    public int WorkerId { get; set; }
 
 }

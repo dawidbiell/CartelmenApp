@@ -7,7 +7,7 @@ namespace Cartelmen.Domain.Entities
     public class Person : ISoftDeletable
     {
         [Key]
-        public required Guid Id { get; set; }
+        public required int Id { get; set; }
         
         [Required] [MaxLength(64)]
         public string FirstName { get; set; } = default!;

@@ -19,7 +19,7 @@ public class PersonRepository: IPersonRepository
             .IgnoreQueryFilters()
             .ToListAsync(ct);
     
-    public async Task<Person?> GetByIdAsync(Guid id, CancellationToken ct) 
+    public async Task<Person?> GetByIdAsync(int id, CancellationToken ct) 
         => await _dbContext.Person
             .Include(w => w.Contact)
             .FirstOrDefaultAsync(w => w.Id == id, ct);
@@ -38,7 +38,7 @@ public class PersonRepository: IPersonRepository
         return result > 0 ? person : default;
     }
 
-    public async Task<bool> DeleteByIdAsync(Guid id, CancellationToken ct)
+    public async Task<bool> DeleteByIdAsync(int id, CancellationToken ct)
     {
         var result = await _dbContext.Person
             .Where(w => w.Id == id && !w.IsDeleted)

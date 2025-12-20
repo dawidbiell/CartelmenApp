@@ -3,7 +3,7 @@ namespace Cartelmen.Application.DTOs;
 
 public class PersonAssignmentDto
 {
-    public Guid PersonId { get; set; }
+    public int PersonId { get; set; }
 
     public DateTime? AssignmentDate { get; set; }
     

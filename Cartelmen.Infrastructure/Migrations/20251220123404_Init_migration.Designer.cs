@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cartelmen.Infrastructure.Migrations
 {
     [DbContext(typeof(CartelmenDbContext))]
-    [Migration("20251209205151_[TimeTrucker].[Id]_remove")]
-    partial class TimeTruckerId_remove
+    [Migration("20251220123404_Init_migration")]
+    partial class Init_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,8 +39,8 @@ namespace Cartelmen.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("WorkerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("WorkerId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -52,10 +52,11 @@ namespace Cartelmen.Infrastructure.Migrations
 
             modelBuilder.Entity("Cartelmen.Domain.Entities.Person", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWSEQUENTIALID()");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("DeletedAtUtc")
                         .HasColumnType("datetime2");
@@ -136,8 +137,8 @@ namespace Cartelmen.Infrastructure.Migrations
                     b.Property<decimal>("PayRate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
 
                     b.Property<int>("SpotId")
                         .HasColumnType("int");

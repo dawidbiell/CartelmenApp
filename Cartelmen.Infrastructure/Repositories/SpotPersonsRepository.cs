@@ -27,7 +27,7 @@ public class SpotPersonsRepository(CartelmenDbContext dbContext) : ISpotPersonsR
             .FirstOrDefaultAsync(ct);
     }
 
-    public async Task<SpotPerson?> FindAssigment(int spotId, Guid personId, CancellationToken ct = default)
+    public async Task<SpotPerson?> FindAssigment(int spotId, int personId, CancellationToken ct = default)
     {
         return await dbContext.SpotPerson
             .Where(sp => sp.SpotId == spotId && sp.PersonId == personId)
@@ -65,7 +65,7 @@ public class SpotPersonsRepository(CartelmenDbContext dbContext) : ISpotPersonsR
         throw new NotImplementedException();
     }
 
-    public Task<bool> DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

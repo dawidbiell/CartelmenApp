@@ -18,7 +18,7 @@ public class WorkerService : IWorkerService
         return await _db.Person.IgnoreQueryFilters().ToListAsync();
     }
 
-    public async Task<Person?> GetByIdAsync(Guid id)
+    public async Task<Person?> GetByIdAsync(int id)
     {
         return await _db.Person.FindAsync(id);
     }
@@ -37,7 +37,7 @@ public class WorkerService : IWorkerService
         return worker;
     }
 
-    public async Task<bool> DeleteByIdAsync(Guid id)
+    public async Task<bool> DeleteByIdAsync(int id)
     {
         var result = await _db.Person
             .Where(w => w.Id == id && !w.IsDeleted)

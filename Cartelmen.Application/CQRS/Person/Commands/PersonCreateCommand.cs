@@ -3,6 +3,6 @@ using MediatR;
 
 namespace Cartelmen.Application.CQRS.Person.Commands;
 
-public class PersonCreateCommand : PersonDto, IRequest<Guid>
+public class PersonCreateCommand : PersonDto, IRequest<int>
 {
 }

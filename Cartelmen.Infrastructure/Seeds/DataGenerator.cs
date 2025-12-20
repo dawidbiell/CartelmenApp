@@ -20,7 +20,7 @@ namespace Cartelmen.Infrastructure.Seeds
 
         public async Task Seed()
         {
-            Randomizer.Seed = new Random(888);
+            Randomizer.Seed = new Random(444);
 
             if (!await _dbContext.Database.CanConnectAsync()) return;
 

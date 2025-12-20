@@ -15,7 +15,8 @@ namespace Cartelmen.Infrastructure.Migrations
                 name: "Person",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWSEQUENTIALID()"),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     HiringDate = table.Column<DateOnly>(type: "date", nullable: true),
@@ -56,7 +57,7 @@ namespace Cartelmen.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true),
-                    WorkerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    WorkerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +77,7 @@ namespace Cartelmen.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SpotId = table.Column<int>(type: "int", nullable: false),
-                    PersonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PersonId = table.Column<int>(type: "int", nullable: false),
                     AssignmentDate = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "getutcdate()"),
                     PayRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
@@ -103,7 +104,6 @@ namespace Cartelmen.Infrastructure.Migrations
                 {
                     WorkDate = table.Column<DateOnly>(type: "date", nullable: false),
                     SpotPersonId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
                     WorkTime = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false),
                     PayRate = table.Column<decimal>(type: "money", nullable: false),
                     IsSubmitted = table.Column<bool>(type: "bit", nullable: false),
@@ -150,6 +150,12 @@ namespace Cartelmen.Infrastructure.Migrations
                 name: "IX_SpotPerson_SpotId",
                 table: "SpotPerson",
                 column: "SpotId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeTracker_IsSubmitted",
+                table: "TimeTracker",
+                column: "IsSubmitted",
+                filter: "IsSubmitted = 0");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TimeTracker_SpotPersonId",

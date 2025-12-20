@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Cartelmen.Application.CQRS.Person.Queries;
 
-public record PersonGetByIdQuery(Guid Id) : IRequest<PersonDto>;
+public record PersonGetByIdQuery(int Id) : IRequest<PersonDto>;
