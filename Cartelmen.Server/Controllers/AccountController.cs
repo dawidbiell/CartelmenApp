@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Cartelmen.Application.DTOs;
+using Cartelmen.Application.Services;
 using Cartelmen.Domain.Entities;
 using Cartelmen.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Server.Controllers;
 
-public class AccountController(CartelmenDbContext context): AppBaseController
+public class AccountController(CartelmenDbContext context, ITokenService tokenService): AppBaseController
 {
     [HttpPost("register")] // api/account/register
     public async Task<ActionResult<AppUser>> Register([FromBody] AppUserRegisterDto user)
@@ -34,7 +35,7 @@ public class AccountController(CartelmenDbContext context): AppBaseController
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<AppUser>> Login(AppUserLoginDto userLogin)
+    public async Task<ActionResult<AppUserDto>> Login(AppUserLoginDto userLogin)
     {
         var user = await context.AppUsers.FirstOrDefaultAsync(u => u.Email.ToLower() == userLogin.Email.ToLower());
         if (user == null) return Unauthorized("User not found");
@@ -49,6 +50,14 @@ public class AccountController(CartelmenDbContext context): AppBaseController
             if (!bytesEqual) return  Unauthorized("Invalid password");
         }
 
-        return Ok(user);
+        var userDto = new AppUserDto()
+        {
+            Username = user.Username,
+            Email = user.Email,
+            Id = user.Id.ToString(),
+            Token = tokenService.CreateToken(user),
+        };
+
+        return Ok(userDto);
     }
 }
