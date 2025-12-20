@@ -5,12 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
 public class AssignmentsController(
     IMediator mediator,
     ISpotPersonsRepository spotPersonsRepository) 
-    : Controller
+    : AppBaseController
 {
     [HttpGet]
     public async Task<IActionResult> GetAll(CancellationToken ct)

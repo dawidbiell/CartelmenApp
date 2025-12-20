@@ -2,15 +2,12 @@
 using Cartelmen.Application.CQRS.Spot.Commands;
 using Cartelmen.Application.CQRS.Spot.Queries;
 using Cartelmen.Application.DTOs;
-using Cartelmen.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class SpotsController : ControllerBase
+    public class SpotsController : AppBaseController
     {
         private readonly IMediator _mediator;
 

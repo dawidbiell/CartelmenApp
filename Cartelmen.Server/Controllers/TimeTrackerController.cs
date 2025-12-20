@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class TimeTrackerController(IMediator mediator) : Controller
+public class TimeTrackerController(IMediator mediator) : AppBaseController
 {
     private readonly IMediator _mediator = mediator;
 

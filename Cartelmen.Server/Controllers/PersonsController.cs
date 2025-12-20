@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
 public class PersonsController(
     IMediator mediator,
-    IValidator<PersonCreateCommand> validator) : Controller
+    IValidator<PersonCreateCommand> validator) 
+    : AppBaseController
 {
     [HttpPost]
     public async Task<IResult> Create(PersonCreateCommand createCommand)
