@@ -56,5 +56,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 ## Additional Resources
 
-- https://tailwindcss.com/
-- https://daisyui.com/
+- https://tailwindcss.com/ | CSS framework
+- https://daisyui.com/ | Tailwind plugin
+- https://github.com/FiloSottile/mkcert | local SSL sertificate
