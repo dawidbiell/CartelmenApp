@@ -20,7 +20,7 @@ namespace Cartelmen.Server
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddInfrastructure(builder.Configuration);
-            builder.Services.AddApplication();
+            builder.Services.AddApplication(builder.Configuration);
 
             builder.Services.AddCors( options =>
             {
@@ -58,6 +58,7 @@ namespace Cartelmen.Server
             app.UseCors("MyPolicy");
             //app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

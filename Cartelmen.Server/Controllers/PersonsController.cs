@@ -2,10 +2,12 @@
 using Cartelmen.Application.CQRS.Person.Queries;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
 
+[Authorize]
 public class PersonsController(
     IMediator mediator,
     IValidator<PersonCreateCommand> validator) 
