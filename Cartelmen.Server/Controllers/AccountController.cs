@@ -3,18 +3,17 @@ using System.Text;
 using Cartelmen.Application.DTOs;
 using Cartelmen.Application.Services;
 using Cartelmen.Domain.Entities;
-using Cartelmen.Infrastructure.Persistence;
+using Cartelmen.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Server.Controllers;
 
-public class AccountController(CartelmenDbContext context, ITokenService tokenService): AppBaseController
+public class AccountController(IAppUserRepository repository, ITokenService tokenService): AppBaseController
 {
     [HttpPost("register")] // api/account/register
     public async Task<ActionResult<AppUser>> Register([FromBody] AppUserRegisterDto user)
     {
-        var mailExists = await context.AppUsers.AnyAsync(x => x.Email.ToLower() == user.Email.ToLower());
+        var mailExists = (await repository.GetByEmailAsync(user.Email)) is not null;
         if (mailExists) return  BadRequest("Email already exists");
             
         using var hmac = new HMACSHA512();
@@ -28,8 +27,7 @@ public class AccountController(CartelmenDbContext context, ITokenService tokenSe
 
         };
         
-        context.AppUsers.Add(appUser);
-        await context.SaveChangesAsync();
+        await repository.AddAsync(appUser);
 
         return Ok(appUser);
     }
@@ -37,7 +35,7 @@ public class AccountController(CartelmenDbContext context, ITokenService tokenSe
     [HttpPost("login")]
     public async Task<ActionResult<AppUserDto>> Login(AppUserLoginDto userLogin)
     {
-        var user = await context.AppUsers.FirstOrDefaultAsync(u => u.Email.ToLower() == userLogin.Email.ToLower());
+        var user = await repository.GetByEmailAsync(userLogin.Email);
         if (user == null) return Unauthorized("User not found");
 
         using var hmac = new HMACSHA512(user.HashSeed);
@@ -50,13 +48,8 @@ public class AccountController(CartelmenDbContext context, ITokenService tokenSe
             if (!bytesEqual) return  Unauthorized("Invalid password");
         }
 
-        var userDto = new AppUserDto()
-        {
-            Username = user.Username,
-            Email = user.Email,
-            Id = user.Id.ToString(),
-            Token = tokenService.CreateToken(user),
-        };
+        var userDto = AppUserDto.FromAppUser(user);
+        userDto.Token = tokenService.CreateToken(user);
 
         return Ok(userDto);
     }

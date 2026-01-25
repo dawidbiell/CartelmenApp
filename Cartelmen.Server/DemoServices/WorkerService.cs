@@ -3,7 +3,7 @@ using Cartelmen.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Server.DemoServices;
-
+// TODO: remove temporary service
 public class WorkerService : IWorkerService
 {
     private readonly CartelmenDbContext _db;

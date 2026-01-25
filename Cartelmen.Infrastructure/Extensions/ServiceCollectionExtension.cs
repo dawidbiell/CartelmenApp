@@ -18,6 +18,7 @@ namespace Cartelmen.Infrastructure.Extensions
 
             services.AddScoped<DataGenerator>();
 
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<ISpotRepository, SpotRepository>();
             services.AddScoped<ISpotPersonsRepository, SpotPersonsRepository>();
