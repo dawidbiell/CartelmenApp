@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Nav } from "../layout/nav/nav";
+import { MockSpotService } from './mocks/mock.spot';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class App implements OnInit {
 
   async getSpots() {
     try {
-      return lastValueFrom(this.httpClient.get('http://localhost:5000/api/spots'))
+      return lastValueFrom(MockSpotService.prototype.getSpots()) // MockSpotService.prototype.getSpots() or (this.httpClient.get('http://localhost:5000/api/spots'));
+        // this.httpClient.get('http://localhost:5000/api/spots'))
     } catch (error) {
       console.error('Error fetching spots:', error);
       throw error;
