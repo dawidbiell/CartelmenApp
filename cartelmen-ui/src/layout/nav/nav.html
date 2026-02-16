@@ -14,10 +14,10 @@
             <a>About</a>
         </nav>
         <div class="flex align-middle ml-auto gap-3">
-            <form class="flex items-center gap-3">
-                <input type="text" class="input" placeholder="Email" />
-                <input type="text" class="input" placeholder="Password"/>
-                <button type="button" class="btn">Login</button>
+            <form #loginForm="ngForm" (ngSubmit)="login()" class="flex items-center gap-3">
+                <input name="email" type="text" class="input" placeholder="Email" [(ngModel)]="credetials.email"/>
+                <input  name="password" type="password" class="input" placeholder="Password" [(ngModel)]="credetials.password"/>
+                <button type="submit" class="btn">Login</button>
             </form>
         </div>
     </div>
