@@ -15,15 +15,10 @@
         </nav>
         <div class="flex align-middle ml-auto gap-3">
             <form #loginForm="ngForm" (ngSubmit)="login()" class="flex items-center gap-3">
-                <input name="email" type="text" class="input" placeholder="Email" [(ngModel)]="credetials.email"/>
-                <input  name="password" type="password" class="input" placeholder="Password" [(ngModel)]="credetials.password"/>
+                <input name="email" type="text" class="input" placeholder="Email" [(ngModel)]="credentials.email"/>
+                <input  name="password" type="password" class="input" placeholder="Password" [(ngModel)]="credentials.password"/>
                 <button type="submit" class="btn">Login</button>
             </form>
         </div>
     </div>
 </header>
-
-<!-- <header class="p-3 w-full fixed top-0 z-50 bg-gradient-to-r from-primary to-secondary shadow-lg">
-
-
-</header> -->
