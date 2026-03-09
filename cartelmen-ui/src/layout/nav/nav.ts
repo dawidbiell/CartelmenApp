@@ -15,16 +15,14 @@ export class Nav {
 
   login() {
     console.log(this.credentials)
-    this.accountService
-      .login(this.credentials)
-      .subscribe({
-        next: response => {
-          console.log('Login successful:', response);
-          this.isLoggedIn.set(true);
-          this.credentials = {}; // Clear credentials after successful login
-        },
-        error: error => console.error('Login failed:', error)
-      });
+    this.accountService.login(this.credentials).subscribe({
+      next: response => {
+        console.log('Login successful:', response);
+        this.isLoggedIn.set(true);
+        this.credentials = {}; // Clear credentials after successful login
+      },
+      error: error => console.error('Login failed:', error)
+    });
   }
 
   logout() {
