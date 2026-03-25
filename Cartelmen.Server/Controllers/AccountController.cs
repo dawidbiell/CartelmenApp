@@ -11,7 +11,7 @@ namespace Cartelmen.Server.Controllers;
 public class AccountController(IAppUserRepository repository, ITokenService tokenService): AppBaseController
 {
     [HttpPost("register")] // api/account/register
-    public async Task<ActionResult<AppUser>> Register([FromBody] AppUserRegisterDto user)
+    public async Task<ActionResult<AppUserDto>> Register([FromBody] AppUserRegisterDto user)
     {
         var mailExists = (await repository.GetByEmailAsync(user.Email)) is not null;
         if (mailExists) return  BadRequest("Email already exists");
@@ -28,28 +28,31 @@ public class AccountController(IAppUserRepository repository, ITokenService toke
         };
         
         await repository.AddAsync(appUser);
+        
+        var userDto = AppUserDto.FromAppUser(appUser);
+        userDto.Token = tokenService.CreateToken(appUser);
 
-        return Ok(appUser);
+        return Ok(userDto);
     }
 
     [HttpPost("login")]
     public async Task<ActionResult<AppUserDto>> Login(AppUserLoginDto userLogin)
     {
-        var user = await repository.GetByEmailAsync(userLogin.Email);
-        if (user == null) return Unauthorized("User not found");
+        var appUser = await repository.GetByEmailAsync(userLogin.Email);
+        if (appUser == null) return Unauthorized("User not found");
 
-        using var hmac = new HMACSHA512(user.HashSeed);
+        using var hmac = new HMACSHA512(appUser.HashSeed);
 
         var hashedPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(userLogin.Password));
 
-        for (var i = 0; i < user.Password.Length; i++)
+        for (var i = 0; i < appUser.Password.Length; i++)
         {
-            var bytesEqual = user.Password[i]==hashedPassword[i];
+            var bytesEqual = appUser.Password[i]==hashedPassword[i];
             if (!bytesEqual) return  Unauthorized("Invalid password");
         }
 
-        var userDto = AppUserDto.FromAppUser(user);
-        userDto.Token = tokenService.CreateToken(user);
+        var userDto = AppUserDto.FromAppUser(appUser);
+        userDto.Token = tokenService.CreateToken(appUser);
 
         return Ok(userDto);
     }

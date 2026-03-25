@@ -20,9 +20,13 @@ public class AppUserRepository : IAppUserRepository
         return user;
     }
 
-    public Task<AppUser?> AddAsync(AppUser? entity, CancellationToken cancellationToken = default)
+    public async Task<AppUser?> AddAsync(AppUser? entity, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        if (entity is null) return null;
+        _context.AppUsers.Add(entity);
+        await _context.SaveChangesAsync(cancellationToken);
+        
+        return entity;
     }
 
     public Task<IEnumerable<AppUser>> GetAllAsync(CancellationToken cancellationToken = default)
