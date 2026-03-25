@@ -23,14 +23,14 @@ export class App implements OnInit {
     this.spots.set(await this.getSpots());
     this.setCurrentUser();
   }
+
   setCurrentUser(): void {
     const userJson = localStorage.getItem('user');
     if (!userJson) return;
     const user = JSON.parse(userJson);
     this.accountService.currentUser.set(user);
   }
-
-
+  
   async getSpots() {
     try {
       return lastValueFrom(MockSpotService.prototype.getSpots()) // MockSpotService.prototype.getSpots() or (this.httpClient.get('http://localhost:5000/api/spots'));

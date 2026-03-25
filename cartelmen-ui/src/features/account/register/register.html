@@ -6,7 +6,7 @@
         <input type="email" class="input w-full" name="email" [(ngModel)]="creds.email" placeholder="Enter email">
         <input type="password" class="input w-full" name="password" [(ngModel)]="creds.password" placeholder="Enter password">
       <div class="flex items-center justify-end gap-3 ">
-        <button class="btn" >Cancel</button>
+        <button type="button" class="btn" (click)="cancel()">Cancel</button>
         <button type="submit" class="btn btn-primary">Register</button>
       </div>
     </form>

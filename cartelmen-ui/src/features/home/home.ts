@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Register } from '../account/register/register';
 
 @Component({
@@ -8,12 +8,11 @@ import { Register } from '../account/register/register';
   styleUrl: './home.css'
 })
 export class Home {
-  protected registreMode = false;
+  protected registreMode = signal(false);
 
-  toggleRegistreMode() {
-    this.registreMode = !this.registreMode;
-  }
-  SetRegisterMode() {
-    this.registreMode = true;
+  SetRegisterMode(value:boolean) {
+    console.log(value);
+    
+    this.registreMode.set(value);
   }
 }
