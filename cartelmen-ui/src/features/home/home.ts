@@ -11,8 +11,6 @@ export class Home {
   protected registreMode = signal(false);
 
   SetRegisterMode(value:boolean) {
-    console.log(value);
-    
     this.registreMode.set(value);
   }
 }
