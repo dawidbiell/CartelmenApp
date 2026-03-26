@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, Signal } from '@angular/core';
 import { User, UserCredentials, UserRegisterCredentials } from '../../app/model/user';
-import { of, tap } from 'rxjs';
+import { of, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,14 +21,16 @@ export class AccountService {
   }
 
   login(credentials: UserCredentials) {
+    return throwError(() => new Error('Login failed: Invalid credentials'))
     // return this.http.post<User>(`${this.baseURL}/login`, credentials)
-
-    return of({
-      id: 1111111,
-      username: "Dawid",
-      email: "dawidbiell@gmail.com",
-      token: "stringTOkenABC123"
-    }).pipe(
+    // return of(
+    //   {
+    //   id: 1111111,
+    //   username: "Dawid",
+    //   email: "dawidbiell@gmail.com",
+    //   token: "stringTOkenABC123"
+    // })
+    .pipe(
       tap((user) => {
         this.setCurrentUser(user);
       })

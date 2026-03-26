@@ -23,7 +23,9 @@ export class Nav {
         this.router.navigateByUrl('/log-time'); // Navigate to the log-time page after successful login
         this.credentials = {} as UserCredentials; // Clear credentials after successful login
       },
-      error: error => console.error('Login failed:', error)
+      error: error => {console.error('Login failed:', error)
+        alert('Login failed: Invalid credentials');
+      }
     });
   }
 
