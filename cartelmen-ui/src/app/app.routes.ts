@@ -4,9 +4,11 @@ import { SpotList } from '../features/spots/spot-list/spot-list';
 import { SpotDetalied } from '../features/spots/spot-detalied/spot-detalied';
 import { Lists } from '../features/lists/lists';
 import { Messages } from '../features/messages/messages';
+import { LogTime } from '../features/tracker/log-time/log-time';
 
 export const routes: Routes = [
   {path:'', component: Home},
+  {path:'log-time', component: LogTime},
   {path:'spots', component: SpotList},
   {path:'spots/:id', component: SpotDetalied},
   {path:'lists', component: Lists},
