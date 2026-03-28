@@ -21,15 +21,15 @@ export class AccountService {
   }
 
   login(credentials: UserCredentials) {
-    return throwError(() => new Error('Login failed: Invalid credentials'))
+    // return throwError(() => new Error('Invalid credentials'))
     // return this.http.post<User>(`${this.baseURL}/login`, credentials)
-    // return of(
-    //   {
-    //   id: 1111111,
-    //   username: "Dawid",
-    //   email: "dawidbiell@gmail.com",
-    //   token: "stringTOkenABC123"
-    // })
+    return of(
+      {
+      id: 1111111,
+      username: "Dawid",
+      email: "dawidbiell@gmail.com",
+      token: "stringTOkenABC123"
+    })
     .pipe(
       tap((user) => {
         this.setCurrentUser(user);
