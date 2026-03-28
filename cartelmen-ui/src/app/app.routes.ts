@@ -8,12 +8,19 @@ import { LogTime } from '../features/tracker/log-time/log-time';
 import { authGuard } from '../core/guards/auth-guard';
 
 export const routes: Routes = [
-  {path:'', component: Home},
-  {path:'log-time', component: LogTime, canActivate: [authGuard]},
-  {path:'spots', component: SpotList, canActivate: [authGuard]},
-  {path:'spots/:id', component: SpotDetalied, canActivate: [authGuard]},
-  {path:'lists', component: Lists, canActivate: [authGuard]},
-  {path:'messages', component: Messages, canActivate: [authGuard]},
-  {path:'**', component: Home},
+  { path: '', component: Home },
+  {
+    path: "",
+    runGuardsAndResolvers: 'always',
+    canActivate: [authGuard],
+    children: [
+      { path: 'log-time', component: LogTime },
+      { path: 'spots', component: SpotList },
+      { path: 'spots/:id', component: SpotDetalied },
+      { path: 'lists', component: Lists },
+      { path: 'messages', component: Messages },
+    ]
+  },
+  { path: '**', component: Home },
 ];
 

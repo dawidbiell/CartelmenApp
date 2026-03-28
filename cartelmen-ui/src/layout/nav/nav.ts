@@ -20,7 +20,7 @@ export class Nav {
   login() {
     console.log(this.credentials)
     this.accountService.login(this.credentials).subscribe({
-      next: response => {
+      next: () => {
         this.toastService.Success('Login successful!');
         this.router.navigateByUrl('/log-time'); // Navigate to the log-time page after successful login
         this.credentials = {} as UserCredentials; // Clear credentials after successful login
