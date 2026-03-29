@@ -2,6 +2,7 @@ using Cartelmen.Application.Extensions;
 using Cartelmen.Infrastructure.Extensions;
 using Cartelmen.Infrastructure.Persistence;
 using Cartelmen.Infrastructure.Seeds;
+using Cartelmen.Server.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cartelmen.Server
@@ -33,7 +34,9 @@ namespace Cartelmen.Server
             });
 
             var app = builder.Build();
-
+            
+            app.UseMiddleware<ExceptionMiddleware>();
+            
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
