@@ -6,6 +6,7 @@ import { Lists } from '../features/lists/lists';
 import { Messages } from '../features/messages/messages';
 import { LogTime } from '../features/tracker/log-time/log-time';
 import { authGuard } from '../core/guards/auth-guard';
+import { ErrorTester } from '../features/error-tester/error-tester';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -21,6 +22,7 @@ export const routes: Routes = [
       { path: 'messages', component: Messages },
     ]
   },
+  { path: 'error-tester', component: ErrorTester },
   { path: '**', component: Home },
 ];
 
