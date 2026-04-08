@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cartelmen.Server.Controllers;
 
-public class BugsController : AppBaseController
+public class ErrorController : AppBaseController
 {
     // GET
     [HttpGet("auth")]
