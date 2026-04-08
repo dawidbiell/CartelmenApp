@@ -14,7 +14,7 @@ export class Register {
   accountService = inject(AccountService);
   toastService = inject(ToastService);
   cancelRegister = output<boolean>();
-  protected creds = {} as UserRegisterCredentials;
+  protected creds: UserRegisterCredentials = { email: '', password: '', username: '' };
 
   protected register(): void {
     this.accountService.register(this.creds).subscribe({

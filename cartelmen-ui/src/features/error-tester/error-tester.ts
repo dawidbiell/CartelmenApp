@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, } from '@angular/core';
+import { UserRegisterCredentials } from '../../app/model/user';
 
 @Component({
   selector: 'app-error-tester',
@@ -11,12 +12,23 @@ export class ErrorTester {
   private httpClient =inject(HttpClient);
 
   private baseURL = 'http://localhost:5000/api/';
+
+  validationErrors = signal<string[]>([]);
   
 
   get401Unauthorized() {
     this.httpClient.get(this.baseURL + 'error/auth').subscribe({
       next: response => console.log(response),
       error: error => console.log(error)
+    });
+  }
+  get400ValidationError() {
+    this.httpClient.post(this.baseURL + 'account/register', {} as UserRegisterCredentials).subscribe({
+      next: response => console.log(response),
+      error: error => {
+        console.log(error);
+        this.validationErrors.set(error);
+      }
     });
   }
 
@@ -38,4 +50,5 @@ export class ErrorTester {
       error: error => console.log(error)
     });
   }
+
 }
