@@ -2,9 +2,11 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { ToastService } from '../services/toast-service';
 import { inject } from '@angular/core';
 import { catchError } from 'rxjs';
+import { Router } from '@angular/router';
 
 export const requestErrorsInterceptor: HttpInterceptorFn = (req, next) => {
   const toast = inject(ToastService);
+  const router = inject(Router);
 
   return next(req).pipe(
     catchError(error => {
@@ -19,14 +21,14 @@ export const requestErrorsInterceptor: HttpInterceptorFn = (req, next) => {
               }
               throw modelStateErrors.flat();
             } else {
-              toast.Error(error.error, error.status);
+              toast.Error(error.error+ ' ' + error.status);
             }
             break;
           case 401:
             toast.Error('Unauthorized. Please log in to access this resource.');
             break;
           case 404:
-            toast.Error('Not Found. The requested resource could not be found.');
+            router.navigateByUrl('/not-found');
             break;
           case 500:
             toast.Error('Internal Server Error. Please try again later.');
