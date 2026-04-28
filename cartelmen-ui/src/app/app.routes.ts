@@ -8,6 +8,7 @@ import { LogTime } from '../features/tracker/log-time/log-time';
 import { authGuard } from '../core/guards/auth-guard';
 import { ErrorTester } from '../features/error-tester/error-tester';
 import { NotFound } from '../shared/errors/not-found/not-found';
+import { ServerError } from '../shared/errors/server-error/server-error';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -24,6 +25,7 @@ export const routes: Routes = [
     ]
   },
   { path: 'error-tester', component: ErrorTester },
+  { path: 'server-error', component: ServerError },
   { path: '**', component: NotFound },
 ];
 

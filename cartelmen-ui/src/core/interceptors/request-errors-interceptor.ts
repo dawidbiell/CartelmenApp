@@ -21,7 +21,7 @@ export const requestErrorsInterceptor: HttpInterceptorFn = (req, next) => {
               }
               throw modelStateErrors.flat();
             } else {
-              toast.Error(error.error+ ' ' + error.status);
+              toast.Error(error.error + ' ' + error.status);
             }
             break;
           case 401:
@@ -31,7 +31,8 @@ export const requestErrorsInterceptor: HttpInterceptorFn = (req, next) => {
             router.navigateByUrl('/not-found');
             break;
           case 500:
-            toast.Error('Internal Server Error. Please try again later.');
+            const navigationExtras = { state: { error: error.error } };
+            router.navigateByUrl('/server-error', navigationExtras);
             break;
           default:
             toast.Error('An unexpected error occurred. Please try again later.');
